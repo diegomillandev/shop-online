@@ -33,7 +33,6 @@ export const MuiCard = ({ product }: { product: ProductType }) => {
                     transition: 'all 0.3s ease-in-out',
                     ':hover': {
                         boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)',
-                        cursor: 'pointer',
                     },
                     position: 'relative',
                 }}
@@ -198,9 +197,13 @@ export const MuiCard = ({ product }: { product: ProductType }) => {
                         gap: 0.5,
                         color: 'white',
                         fontWeight: 'bold',
-                        borderRadius: '.5rem',
+                        borderRadius: '6px',
                         alignItems: 'center',
                         bgcolor: '#44a036',
+                        ':hover': {
+                            bgcolor: '#2f8a2f',
+                            cursor: 'pointer',
+                        },
                     }}
                 >
                     <Visibility
@@ -210,7 +213,7 @@ export const MuiCard = ({ product }: { product: ProductType }) => {
                             color: 'white',
                         }}
                     />
-                    <span>View</span>
+                    <Typography>View</Typography>
                 </Box>
             </Card>
         </Grid>
