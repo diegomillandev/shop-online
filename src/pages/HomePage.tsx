@@ -16,6 +16,8 @@ export const HomePage = ({
     deleteToCart,
     addItemCart,
     deletItemCart,
+    quantityInCart,
+    clearCart,
 }: {
     products: ProductsType;
     handleOpen: () => void;
@@ -25,6 +27,8 @@ export const HomePage = ({
     deleteToCart: (id: ProductTypeCart['id']) => void;
     addItemCart: (id: ProductTypeCart['id']) => void;
     deletItemCart: (id: ProductTypeCart['id']) => void;
+    quantityInCart: (id: number) => number;
+    clearCart: () => void;
 }) => {
     return (
         <>
@@ -33,6 +37,7 @@ export const HomePage = ({
                 deleteToCart={deleteToCart}
                 addItemCart={addItemCart}
                 deletItemCart={deletItemCart}
+                clearCart={clearCart}
             />
             <Container maxWidth="lg">
                 <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
@@ -43,6 +48,7 @@ export const HomePage = ({
                             handleOpen={handleOpen}
                             setProductoModal={setProductoModal}
                             addToCart={addToCart}
+                            quantityInCart={quantityInCart}
                         />
                     ))}
                 </Grid>

@@ -5,8 +5,19 @@ import {
     ProductsTypeCart,
 } from '../types/Products';
 
+const localStorageCart = (): ProductsTypeCart => {
+    const cart = localStorage.getItem('cartItems');
+    if (cart) {
+        return JSON.parse(cart);
+    } else {
+        return [];
+    }
+};
+
 export const useCart = () => {
-    const [cartItems, setCartItems] = useState<ProductsTypeCart>([]);
+    const [cartItems, setCartItems] = useState<ProductsTypeCart>(
+        localStorageCart()
+    );
 
     const addToCart = (product: ProductType) => {
         const existingProduct = cartItems.find(
@@ -74,6 +85,18 @@ export const useCart = () => {
         setCartItems(updatedCartItems);
     };
 
+    const quantityInCart = (id: ProductTypeCart['id']) => {
+        const product = cartItems.find((cartProduct) => cartProduct.id === id);
+        if (product) {
+            return product.quantity;
+        }
+        return 0;
+    };
+
+    const clearCart = () => {
+        setCartItems([]);
+    };
+
     return {
         cartItems,
         setCartItems,
@@ -81,5 +104,7 @@ export const useCart = () => {
         deleteToCart,
         addItemCart,
         deletItemCart,
+        quantityInCart,
+        clearCart,
     };
 };

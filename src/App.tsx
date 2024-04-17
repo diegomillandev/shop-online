@@ -9,13 +9,24 @@ export const App = () => {
     const { products, productoModal, setProductoModal, fetchAllProducts } =
         useStore();
     const [open, setOpen] = useState(false);
-    const { cartItems, addToCart, deleteToCart, addItemCart, deletItemCart } =
-        useCart();
+    const {
+        cartItems,
+        addToCart,
+        deleteToCart,
+        addItemCart,
+        deletItemCart,
+        quantityInCart,
+        clearCart,
+    } = useCart();
 
     const handleOpen = () => setOpen(!open);
     useEffect(() => {
         fetchAllProducts();
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
     return (
         <>
             <AppTheme>
@@ -28,6 +39,8 @@ export const App = () => {
                     deleteToCart={deleteToCart}
                     addItemCart={addItemCart}
                     deletItemCart={deletItemCart}
+                    quantityInCart={quantityInCart}
+                    clearCart={clearCart}
                 />
                 <TSSModal
                     open={open}

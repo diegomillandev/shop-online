@@ -1,5 +1,6 @@
 import { AddShoppingCart, Visibility } from '@mui/icons-material';
 import {
+    Badge,
     Box,
     Card,
     CardContent,
@@ -19,11 +20,13 @@ export const MuiCard = ({
     handleOpen,
     setProductoModal,
     addToCart,
+    quantityInCart,
 }: {
     product: ProductType;
     handleOpen: () => void;
     setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
     addToCart: (product: ProductType) => void;
+    quantityInCart: (id: number) => number;
 }) => {
     const [hovered, setHovered] = useState(false);
 
@@ -166,12 +169,19 @@ export const MuiCard = ({
                                         addToCart(product);
                                     }}
                                 >
-                                    <AddShoppingCart
-                                        sx={{
-                                            width: 30,
-                                            height: 30,
-                                        }}
-                                    />
+                                    <Badge
+                                        badgeContent={quantityInCart(
+                                            product.id
+                                        )}
+                                        color="error"
+                                    >
+                                        <AddShoppingCart
+                                            sx={{
+                                                width: 30,
+                                                height: 30,
+                                            }}
+                                        />
+                                    </Badge>
                                     <Typography
                                         sx={{
                                             position: 'absolute',

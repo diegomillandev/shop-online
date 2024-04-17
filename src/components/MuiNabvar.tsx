@@ -60,11 +60,13 @@ export const MuiNabvar = ({
     deleteToCart,
     addItemCart,
     deletItemCart,
+    clearCart,
 }: {
     cartItems: ProductTypeCart[];
     deleteToCart: (id: ProductTypeCart['id']) => void;
     addItemCart: (id: ProductTypeCart['id']) => void;
     deletItemCart: (id: ProductTypeCart['id']) => void;
+    clearCart: () => void;
 }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -145,6 +147,11 @@ export const MuiNabvar = ({
         </Menu>
     );
 
+    const totalCost = cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+    );
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -196,7 +203,10 @@ export const MuiNabvar = ({
                                 aria-label="show 17 new notifications"
                                 color="inherit"
                             >
-                                <Badge badgeContent={0} color="error">
+                                <Badge
+                                    badgeContent={cartItems.length}
+                                    color="error"
+                                >
                                     <ShoppingCart />
                                 </Badge>
                             </IconButton>
@@ -206,17 +216,17 @@ export const MuiNabvar = ({
                                         <table className="w-100 table">
                                             <thead>
                                                 <tr className="[&>th]:text-gray-600 [&>th]:px-2">
-                                                    <th>Imagen</th>
-                                                    <th>Nombre</th>
-                                                    <th>Precio</th>
-                                                    <th>Cantidad</th>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {cartItems.map((item) => (
                                                     <tr
-                                                        className="[&>td]:px-2 content-center [&>td]:my-auto pt-3"
+                                                        className="[&>td]:px-2 content-center [&>td]:my-auto pt-3 border-b-2 border-gray-200"
                                                         key={item.id}
                                                     >
                                                         <td>
@@ -227,10 +237,10 @@ export const MuiNabvar = ({
                                                             />
                                                         </td>
                                                         <td className="text-center">
-                                                            {cutString(
+                                                            {`${cutString(
                                                                 item.title,
                                                                 20
-                                                            )}
+                                                            )}...`}
                                                         </td>
                                                         <td className="fw-bold">
                                                             ${item.price}
@@ -268,7 +278,7 @@ export const MuiNabvar = ({
                                                         </td>
                                                         <td>
                                                             <button
-                                                                className="bg-red-600 text-white w-full px-2 py-1 rounded-full disabled:bg-gray-600 disabled:text-gray-300"
+                                                                className="bg-red-300 hover:bg-red-500 text-white w-6 h-6 rounded-full"
                                                                 type="button"
                                                                 onClick={() =>
                                                                     deletItemCart(
@@ -284,13 +294,16 @@ export const MuiNabvar = ({
                                             </tbody>
                                         </table>
                                         <p className="font-bold text-end my-1">
-                                            Total pagar:{' '}
+                                            Total:{' '}
                                             <span className="fw-bold">
-                                                $899
+                                                ${totalCost.toFixed(2)}
                                             </span>
                                         </p>
-                                        <button className="bg-gray-800 text-white w-full py-2 rounded-md ">
-                                            Vaciar Carrito
+                                        <button
+                                            onClick={() => clearCart()}
+                                            className="bg-gray-800 text-white w-full py-2 rounded-md "
+                                        >
+                                            Clear Cart
                                         </button>
                                     </>
                                 ) : (
