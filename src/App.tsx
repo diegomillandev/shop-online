@@ -20,12 +20,12 @@ export const App = () => {
                     handleOpen={handleOpen}
                     setProductoModal={setProductoModal}
                 />
+                <TSSModal
+                    open={open}
+                    handleOpen={handleOpen}
+                    productoModal={productoModal}
+                />
             </AppTheme>
-            <TSSModal
-                open={open}
-                handleOpen={handleOpen}
-                productoModal={productoModal}
-            />
         </>
     );
 };

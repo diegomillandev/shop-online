@@ -15,7 +15,7 @@ export const HomePage = ({
         <>
             <MuiNabvar />
             <Container maxWidth="lg">
-                <Grid container spacing={5} sx={{ my: 5 }}>
+                <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
                     {products?.map((product) => (
                         <MuiCard
                             key={product.id}
