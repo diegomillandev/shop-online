@@ -128,46 +128,6 @@ export const TSSModal = ({
                                     </Typography>
                                 </Box>
                             </Box>
-                            <Box
-                                display={'flex'}
-                                justifyContent={'end'}
-                                alignSelf={'end'}
-                            >
-                                <Tooltip title="Add Cart" placement="top">
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show 17 new notifications"
-                                        color="inherit"
-                                        sx={{ position: 'relative' }}
-                                    >
-                                        <AddShoppingCart
-                                            sx={{
-                                                width: 30,
-                                                height: 30,
-                                            }}
-                                        />
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                bgcolor: '#ca1f1f',
-                                                color: 'white',
-                                                borderRadius: '50%',
-                                                width: 15,
-                                                height: 15,
-                                                fontSize: 10,
-                                            }}
-                                            display={'none'}
-                                            justifyContent={'center'}
-                                            alignItems={'center'}
-                                            padding={1}
-                                            top={2}
-                                            right={4}
-                                        >
-                                            1
-                                        </Typography>
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
                         </Box>
                     </div>
                 </div>
