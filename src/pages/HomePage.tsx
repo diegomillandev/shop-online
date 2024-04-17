@@ -8,6 +8,21 @@ import {
 } from '../types/Products';
 import { useEffect, useState } from 'react';
 
+type HomePageProps = {
+    products: ProductsType;
+    handleOpen: () => void;
+    setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
+    addToCart: (product: ProductType) => void;
+    cartItems: ProductTypeCart[];
+    deleteToCart: (id: ProductTypeCart['id']) => void;
+    addItemCart: (id: ProductTypeCart['id']) => void;
+    deletItemCart: (id: ProductTypeCart['id']) => void;
+    quantityInCart: (id: number) => number;
+    clearCart: () => void;
+    inputSearch: string;
+    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export const HomePage = ({
     products,
     handleOpen,
@@ -21,20 +36,7 @@ export const HomePage = ({
     clearCart,
     inputSearch,
     setInputSearch,
-}: {
-    products: ProductsType;
-    handleOpen: () => void;
-    setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
-    addToCart: (product: ProductType) => void;
-    cartItems: ProductTypeCart[];
-    deleteToCart: (id: ProductTypeCart['id']) => void;
-    addItemCart: (id: ProductTypeCart['id']) => void;
-    deletItemCart: (id: ProductTypeCart['id']) => void;
-    quantityInCart: (id: number) => number;
-    clearCart: () => void;
-    inputSearch: string;
-    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+}: HomePageProps) => {
     const [category, setCategory] = useState('');
     const getCategories = (): string[] => {
         const categories: Set<string> = new Set();

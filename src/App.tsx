@@ -24,6 +24,7 @@ export const App = () => {
     const handleOpen = () => setOpen(!open);
     useEffect(() => {
         fetchAllProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

@@ -14,20 +14,20 @@ import {
 import { ProductModalType, ProductType } from '../types/Products';
 import { cutString, procentajeRamdom } from '../helpers';
 import { useMemo, useState } from 'react';
-
+type MuiCardProps = {
+    product: ProductType;
+    handleOpen: () => void;
+    setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
+    addToCart: (product: ProductType) => void;
+    quantityInCart: (id: number) => number;
+};
 export const MuiCard = ({
     product,
     handleOpen,
     setProductoModal,
     addToCart,
     quantityInCart,
-}: {
-    product: ProductType;
-    handleOpen: () => void;
-    setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
-    addToCart: (product: ProductType) => void;
-    quantityInCart: (id: number) => number;
-}) => {
+}: MuiCardProps) => {
     const [hovered, setHovered] = useState(false);
 
     const handleHover = () => {

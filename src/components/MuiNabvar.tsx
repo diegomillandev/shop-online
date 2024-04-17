@@ -55,6 +55,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+type MiuNavbarProps = {
+    cartItems: ProductTypeCart[];
+    deleteToCart: (id: ProductTypeCart['id']) => void;
+    addItemCart: (id: ProductTypeCart['id']) => void;
+    deletItemCart: (id: ProductTypeCart['id']) => void;
+    clearCart: () => void;
+    inputSearch: string;
+    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export const MuiNabvar = ({
     cartItems,
     deleteToCart,
@@ -63,15 +73,7 @@ export const MuiNabvar = ({
     clearCart,
     inputSearch,
     setInputSearch,
-}: {
-    cartItems: ProductTypeCart[];
-    deleteToCart: (id: ProductTypeCart['id']) => void;
-    addItemCart: (id: ProductTypeCart['id']) => void;
-    deletItemCart: (id: ProductTypeCart['id']) => void;
-    clearCart: () => void;
-    inputSearch: string;
-    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+}: MiuNavbarProps) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
