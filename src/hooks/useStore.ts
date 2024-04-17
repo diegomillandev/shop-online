@@ -1,8 +1,25 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { ProductSchema, ProductsType } from '../types/Products';
+import {
+    ProductModalType,
+    ProductSchema,
+    ProductsType,
+} from '../types/Products';
 export const useStore = () => {
     const [products, setProducts] = useState<ProductsType>([]);
+    const [productoModal, setProductoModal] = useState<ProductModalType>({
+        id: 0,
+        title: '',
+        price: 0,
+        description: '',
+        category: '',
+        image: '',
+        rating: {
+            rate: 0,
+            count: 0,
+        },
+        procentaje: 0,
+    });
     const fetchAllProducts = async () => {
         try {
             const response = await axios.get(
@@ -21,6 +38,8 @@ export const useStore = () => {
     };
     return {
         products,
+        productoModal,
+        setProductoModal,
         fetchAllProducts,
     };
 };

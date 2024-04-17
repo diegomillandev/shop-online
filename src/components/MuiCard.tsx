@@ -10,11 +10,19 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material';
-import { ProductType } from '../types/Products';
+import { ProductModalType, ProductType } from '../types/Products';
 import { cutString, procentajeRamdom } from '../helpers';
 import { useMemo, useState } from 'react';
 
-export const MuiCard = ({ product }: { product: ProductType }) => {
+export const MuiCard = ({
+    product,
+    handleOpen,
+    setProductoModal,
+}: {
+    product: ProductType;
+    handleOpen: () => void;
+    setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
+}) => {
     const [hovered, setHovered] = useState(false);
 
     const handleHover = () => {
@@ -204,6 +212,13 @@ export const MuiCard = ({ product }: { product: ProductType }) => {
                             bgcolor: '#2f8a2f',
                             cursor: 'pointer',
                         },
+                    }}
+                    onClick={() => {
+                        setProductoModal({
+                            ...product,
+                            procentaje: percentage,
+                        });
+                        handleOpen();
                     }}
                 >
                     <Visibility

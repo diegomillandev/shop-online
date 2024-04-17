@@ -15,3 +15,4 @@ export const ProductSchema = z.object({
 
 export type ProductType = z.infer<typeof ProductSchema>;
 export type ProductsType = ProductType[];
+export type ProductModalType = ProductType & { procentaje: number };
