@@ -6,7 +6,7 @@ import {
     ProductTypeCart,
     ProductsType,
 } from '../types/Products';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const HomePage = ({
     products,
@@ -19,6 +19,8 @@ export const HomePage = ({
     deletItemCart,
     quantityInCart,
     clearCart,
+    inputSearch,
+    setInputSearch,
 }: {
     products: ProductsType;
     handleOpen: () => void;
@@ -30,6 +32,8 @@ export const HomePage = ({
     deletItemCart: (id: ProductTypeCart['id']) => void;
     quantityInCart: (id: number) => number;
     clearCart: () => void;
+    inputSearch: string;
+    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
 }) => {
     const [category, setCategory] = useState('');
     const getCategories = (): string[] => {
@@ -38,8 +42,20 @@ export const HomePage = ({
         return Array.from(categories);
     };
 
+    inputSearch = inputSearch.toLowerCase();
+
+    useEffect(() => {
+        if (inputSearch !== '') {
+            setCategory('');
+        }
+    }, [inputSearch]);
+
     const getProductsByCategory = category
         ? products?.filter((product) => product.category === category)
+        : inputSearch
+        ? products.filter((product) =>
+              product.title.toLowerCase().includes(inputSearch)
+          )
         : products;
 
     return (
@@ -50,6 +66,8 @@ export const HomePage = ({
                 addItemCart={addItemCart}
                 deletItemCart={deletItemCart}
                 clearCart={clearCart}
+                inputSearch={inputSearch}
+                setInputSearch={setInputSearch}
             />
             <Container maxWidth="lg">
                 <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
@@ -59,6 +77,7 @@ export const HomePage = ({
                             id=""
                             onChange={(e) => setCategory(e.target.value)}
                             className="p-2 border border-gray-300 rounded-md capitalize text-black w-2/4 md:w-1/4"
+                            value={category}
                         >
                             <option value="">All Categories</option>
                             {getCategories().map((category) => (

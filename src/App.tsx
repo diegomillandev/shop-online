@@ -9,6 +9,7 @@ export const App = () => {
     const { products, productoModal, setProductoModal, fetchAllProducts } =
         useStore();
     const [open, setOpen] = useState(false);
+    const [inputSearch, setInputSearch] = useState<string>('');
 
     const {
         cartItems,
@@ -43,6 +44,8 @@ export const App = () => {
                     deletItemCart={deletItemCart}
                     quantityInCart={quantityInCart}
                     clearCart={clearCart}
+                    inputSearch={inputSearch}
+                    setInputSearch={setInputSearch}
                 />
                 <TSSModal
                     open={open}

@@ -61,12 +61,16 @@ export const MuiNabvar = ({
     addItemCart,
     deletItemCart,
     clearCart,
+    inputSearch,
+    setInputSearch,
 }: {
     cartItems: ProductTypeCart[];
     deleteToCart: (id: ProductTypeCart['id']) => void;
     addItemCart: (id: ProductTypeCart['id']) => void;
     deletItemCart: (id: ProductTypeCart['id']) => void;
     clearCart: () => void;
+    inputSearch: string;
+    setInputSearch: React.Dispatch<React.SetStateAction<string>>;
 }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -193,6 +197,8 @@ export const MuiNabvar = ({
                         <StyledInputBase
                             placeholder="Search items"
                             inputProps={{ 'aria-label': 'search' }}
+                            value={inputSearch}
+                            onChange={(e) => setInputSearch(e.target.value)}
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
