@@ -6,6 +6,7 @@ import {
     ProductTypeCart,
     ProductsType,
 } from '../types/Products';
+import { useState } from 'react';
 
 export const HomePage = ({
     products,
@@ -30,6 +31,17 @@ export const HomePage = ({
     quantityInCart: (id: number) => number;
     clearCart: () => void;
 }) => {
+    const [category, setCategory] = useState('');
+    const getCategories = (): string[] => {
+        const categories: Set<string> = new Set();
+        products?.map((product) => categories.add(product.category));
+        return Array.from(categories);
+    };
+
+    const getProductsByCategory = category
+        ? products?.filter((product) => product.category === category)
+        : products;
+
     return (
         <>
             <MuiNabvar
@@ -41,7 +53,22 @@ export const HomePage = ({
             />
             <Container maxWidth="lg">
                 <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
-                    {products?.map((product) => (
+                    <div className="w-full flex justify-end mt-5">
+                        <select
+                            name=""
+                            id=""
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="p-2 border border-gray-300 rounded-md capitalize text-black w-2/4 md:w-1/4"
+                        >
+                            <option value="">All Categories</option>
+                            {getCategories().map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    {getProductsByCategory?.map((product) => (
                         <MuiCard
                             key={product.id}
                             product={product}

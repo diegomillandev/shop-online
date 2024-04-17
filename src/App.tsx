@@ -9,6 +9,7 @@ export const App = () => {
     const { products, productoModal, setProductoModal, fetchAllProducts } =
         useStore();
     const [open, setOpen] = useState(false);
+
     const {
         cartItems,
         addToCart,
@@ -27,6 +28,7 @@ export const App = () => {
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
+
     return (
         <>
             <AppTheme>

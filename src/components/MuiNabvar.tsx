@@ -239,7 +239,7 @@ export const MuiNabvar = ({
                                                         <td className="text-center">
                                                             {`${cutString(
                                                                 item.title,
-                                                                20
+                                                                16
                                                             )}...`}
                                                         </td>
                                                         <td className="fw-bold">
