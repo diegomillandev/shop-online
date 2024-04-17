@@ -32,12 +32,26 @@ export const TSSModal = ({
                     <img
                         src={productoModal?.image}
                         alt="image product"
-                        className="w-[150px] sm:w-[250px] md:w-[350px] mx-auto"
+                        className="w-[150px] sm:w-[250px] md:w-[300px] mx-auto"
                     />
-                    <div className="max-w-[350px]">
-                        <h4 className="text-xl font-bold mb-2 mt-5">
+                    <div className="max-w-[350px] flex flex-col">
+                        <h4 className="text-xl font-bold mb-2 md:mt-5">
                             {productoModal?.title}
                         </h4>
+                        <p className="text-xs md:text-sm flex-1">
+                            Easy upgrade for faster boot up, shutdown,
+                            application load and response (As compared to 5400
+                            RPM SATA 2.5” hard drive; Based on published
+                            specifications and internal benchmarking tests using
+                            PCMark vantage scores) Boosts burst write
+                            performance, making it ideal for typical PC
+                            workloads The perfect balance of performance and
+                            reliability Read/write speeds of up to
+                            535MB/s/450MB/s (Based on internal testing;
+                            Performance may vary depending upon drive capacity,
+                            host device, OS and application.)
+                        </p>
+
                         <Box
                             marginTop={1}
                             display={'flex'}
@@ -155,19 +169,6 @@ export const TSSModal = ({
                                 </Tooltip>
                             </Box>
                         </Box>
-                        <p className="text-sm">
-                            Easy upgrade for faster boot up, shutdown,
-                            application load and response (As compared to 5400
-                            RPM SATA 2.5” hard drive; Based on published
-                            specifications and internal benchmarking tests using
-                            PCMark vantage scores) Boosts burst write
-                            performance, making it ideal for typical PC
-                            workloads The perfect balance of performance and
-                            reliability Read/write speeds of up to
-                            535MB/s/450MB/s (Based on internal testing;
-                            Performance may vary depending upon drive capacity,
-                            host device, OS and application.)
-                        </p>
                     </div>
                 </div>
             </div>
