@@ -15,4 +15,6 @@ export const ProductSchema = z.object({
 
 export type ProductType = z.infer<typeof ProductSchema>;
 export type ProductsType = ProductType[];
+export type ProductTypeCart = ProductType & { quantity: number };
+export type ProductsTypeCart = ProductTypeCart[];
 export type ProductModalType = ProductType & { procentaje: number };

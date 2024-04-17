@@ -18,10 +18,12 @@ export const MuiCard = ({
     product,
     handleOpen,
     setProductoModal,
+    addToCart,
 }: {
     product: ProductType;
     handleOpen: () => void;
     setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
+    addToCart: (product: ProductType) => void;
 }) => {
     const [hovered, setHovered] = useState(false);
 
@@ -158,9 +160,11 @@ export const MuiCard = ({
                             <Tooltip title="Add Cart" placement="top">
                                 <IconButton
                                     size="large"
-                                    aria-label="show 17 new notifications"
                                     color="inherit"
                                     sx={{ position: 'relative' }}
+                                    onClick={() => {
+                                        addToCart(product);
+                                    }}
                                 >
                                     <AddShoppingCart
                                         sx={{

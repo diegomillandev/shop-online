@@ -9,7 +9,8 @@ export const App = () => {
     const { products, productoModal, setProductoModal, fetchAllProducts } =
         useStore();
     const [open, setOpen] = useState(false);
-    const { cartItems, setCartItems } = useCart();
+    const { cartItems, addToCart, deleteToCart, addItemCart, deletItemCart } =
+        useCart();
 
     const handleOpen = () => setOpen(!open);
     useEffect(() => {
@@ -22,7 +23,11 @@ export const App = () => {
                     products={products}
                     handleOpen={handleOpen}
                     setProductoModal={setProductoModal}
-                    setCartItems={setCartItems}
+                    cartItems={cartItems}
+                    addToCart={addToCart}
+                    deleteToCart={deleteToCart}
+                    addItemCart={addItemCart}
+                    deletItemCart={deletItemCart}
                 />
                 <TSSModal
                     open={open}
