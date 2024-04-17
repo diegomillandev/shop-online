@@ -1,13 +1,5 @@
-import {
-    Box,
-    IconButton,
-    Modal,
-    Rating,
-    Tooltip,
-    Typography,
-} from '@mui/material';
+import { Box, Modal, Rating, Typography } from '@mui/material';
 import { ProductModalType } from '../types/Products';
-import { AddShoppingCart } from '@mui/icons-material';
 
 type TSSModalProps = {
     open: boolean;
