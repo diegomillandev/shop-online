@@ -6,14 +6,16 @@ export const HomePage = ({
     products,
     handleOpen,
     setProductoModal,
+    setCartItems,
 }: {
     products: ProductsType;
     handleOpen: () => void;
     setProductoModal: React.Dispatch<React.SetStateAction<ProductModalType>>;
+    setCartItems: React.Dispatch<React.SetStateAction<ProductsType>>;
 }) => {
     return (
         <>
-            <MuiNabvar />
+            <MuiNabvar setCartItems={setCartItems} />
             <Container maxWidth="lg">
                 <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
                     {products?.map((product) => (

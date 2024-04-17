@@ -13,6 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { ShoppingCart, Store } from '@mui/icons-material';
+import { ProductsType } from '../types/Products';
+import { cutString } from '../helpers';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,7 +55,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export const MuiNabvar = () => {
+export const MuiNabvar = ({
+    setCartItems,
+}: {
+    setCartItems: React.Dispatch<React.SetStateAction<ProductsType>>;
+}) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -145,6 +151,10 @@ export const MuiNabvar = () => {
         </Menu>
     );
 
+    const showCartItems = (): void => {
+        console.log('Cart Items');
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -190,15 +200,84 @@ export const MuiNabvar = () => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={0} color="error">
-                                <ShoppingCart />
-                            </Badge>
-                        </IconButton>
+                        <div className="relative group">
+                            <IconButton
+                                size="large"
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                            >
+                                <Badge badgeContent={0} color="error">
+                                    <ShoppingCart />
+                                </Badge>
+                            </IconButton>
+                            <div className="hidden group-hover:block absolute bg-white text-gray-800 p-3 z-40 top-full right-0 rounded shadow-lg">
+                                <table className="w-100 table">
+                                    <thead>
+                                        <tr className="[&>th]:text-gray-600 [&>th]:px-2">
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="[&>td]:px-2 content-center [&>td]:my-auto pt-3">
+                                            <td>
+                                                <img
+                                                    className="img-fluid"
+                                                    src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                                                    alt="imagen guitarra"
+                                                />
+                                            </td>
+                                            <td className="text-center">
+                                                {cutString(
+                                                    `Silicon Power 256GB SSD 3D NAND
+                                                    A55 SLC Cache Performance Boost
+                                                    SATA III 2.51`,
+                                                    20
+                                                )}
+                                            </td>
+                                            <td className="fw-bold">$299</td>
+                                            <td className="">
+                                                <div className="flex items-center">
+                                                    <button
+                                                        type="button"
+                                                        className="text-2xl bg-gray-900 text-white w-4 h-4 flex items-center justify-center rounded"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className="mx-1 font-bold">
+                                                        1
+                                                    </span>
+                                                    <button
+                                                        type="button"
+                                                        className="text-rose-200xl bg-gray-900 text-white w-4 h-4 flex items-center justify-center rounded"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="bg-red-600 text-white w-full px-2 py-1 rounded-full"
+                                                    type="button"
+                                                >
+                                                    X
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p className="font-bold text-end my-1">
+                                    Total pagar:{' '}
+                                    <span className="fw-bold">$899</span>
+                                </p>
+                                <button className="bg-gray-800 text-white w-full py-2 rounded-md">
+                                    Vaciar Carrito
+                                </button>
+                            </div>
+                        </div>
                         <IconButton
                             size="large"
                             edge="end"

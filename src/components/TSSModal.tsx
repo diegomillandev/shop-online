@@ -32,7 +32,7 @@ export const TSSModal = ({
                     <img
                         src={productoModal?.image}
                         alt="image product"
-                        className="w-[150px] sm:w-[250px] md:w-[300px] mx-auto"
+                        className="w-[150px] sm:w-[250px] md:w-[300px] mx-auto object-contain"
                     />
                     <div className="max-w-[350px] flex flex-col">
                         <h4 className="text-xl font-bold mb-2 md:mt-5">
