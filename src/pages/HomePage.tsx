@@ -71,7 +71,7 @@ export const HomePage = ({
                 inputSearch={inputSearch}
                 setInputSearch={setInputSearch}
             />
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ mt: 8, md: { mt: 10 } }}>
                 <Grid container spacing={5} sx={{ mt: 1, mb: 5 }}>
                     <div className="w-full flex justify-end mt-5">
                         <select

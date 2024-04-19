@@ -160,7 +160,16 @@ export const MuiNabvar = ({
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar
+                position="static"
+                sx={{
+                    position: 'fixed',
+                    zIndex: 100,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                }}
+            >
                 <Toolbar>
                     <Typography
                         variant="h6"
