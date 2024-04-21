@@ -89,16 +89,22 @@ export const HomePage = ({
                             ))}
                         </select>
                     </div>
-                    {getProductsByCategory?.map((product) => (
-                        <MuiCard
-                            key={product.id}
-                            product={product}
-                            handleOpen={handleOpen}
-                            setProductoModal={setProductoModal}
-                            addToCart={addToCart}
-                            quantityInCart={quantityInCart}
-                        />
-                    ))}
+                    {getProductsByCategory.length ? (
+                        getProductsByCategory?.map((product) => (
+                            <MuiCard
+                                key={product.id}
+                                product={product}
+                                handleOpen={handleOpen}
+                                setProductoModal={setProductoModal}
+                                addToCart={addToCart}
+                                quantityInCart={quantityInCart}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-center w-full mt-10 text-3xl font-semibold text-gray-600">
+                            No products found
+                        </p>
+                    )}
                 </Grid>
             </Container>
         </>
