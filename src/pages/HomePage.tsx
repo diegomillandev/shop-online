@@ -60,6 +60,14 @@ export const HomePage = ({
           )
         : products;
 
+    category
+        ? products?.filter((product) => product.category === category)
+        : inputSearch
+        ? products.filter((product) =>
+              product.title.toLowerCase().includes(inputSearch)
+          )
+        : products;
+
     return (
         <>
             <MuiNabvar
@@ -101,9 +109,14 @@ export const HomePage = ({
                             />
                         ))
                     ) : (
-                        <p className="text-center w-full mt-10 text-3xl font-semibold text-gray-600">
-                            No products found
-                        </p>
+                        <>
+                            <div className="flex space-x-2 justify-center items-top pt-20 w-full ">
+                                <span className="sr-only">Loading...</span>
+                                <div className="h-6 w-6 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                <div className="h-6 w-6 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                <div className="h-6 w-6 bg-blue-500 rounded-full animate-bounce"></div>
+                            </div>
+                        </>
                     )}
                 </Grid>
             </Container>
