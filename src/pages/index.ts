@@ -1,1 +1,4 @@
-export * from './HomePage';
+export * from './Cart/Cart';
+export * from './Home/Home';
+export * from './ItemDetail/ItemDetail';
+export * from './Login/Login';
