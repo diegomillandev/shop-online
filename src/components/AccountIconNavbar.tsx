@@ -1,10 +1,13 @@
 import { AccountCircle } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const AccountIconNavbar = () => {
     return (
-        <IconButton>
-            <AccountCircle sx={{ fontSize: 34, color: 'white' }} />
-        </IconButton>
+        <Link to={''}>
+            <Box component={'div'}>
+                <AccountCircle sx={{ fontSize: 34, color: 'white' }} />
+            </Box>
+        </Link>
     );
 };

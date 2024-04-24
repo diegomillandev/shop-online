@@ -1,20 +1,21 @@
-import { AppBar, Grid, Toolbar } from '@mui/material';
+import { AppBar, Box, Grid, Toolbar } from '@mui/material';
 import { AccountIconNavbar, Cart, Logo, SearchInput } from '.';
-import { Link } from 'react-router-dom';
 
 export const MuiNavbar = () => {
     return (
-        <AppBar>
+        <AppBar position="fixed">
             <Toolbar>
                 <Grid
                     container
-                    sx={{ paddingTop: 1, paddingBottom: { xs: 2, sm: 1 } }}
+                    sx={{
+                        paddingTop: 1,
+                        paddingBottom: { xs: 2, sm: 1 },
+                        rowGap: { xs: 1, sm: 0 },
+                    }}
                     alignItems={'center'}
                 >
                     <Grid item xs={9} sm={3} md={2} alignSelf={'center'}>
-                        <Link to={'/'}>
-                            <Logo />
-                        </Link>
+                        <Logo />
                     </Grid>
                     <Grid
                         item
@@ -28,8 +29,15 @@ export const MuiNavbar = () => {
                             justifyContent: { xs: 'end' },
                         }}
                     >
-                        <AccountIconNavbar />
-                        <Cart />
+                        <Box
+                            component={'div'}
+                            display={'flex'}
+                            alignItems={'center'}
+                            gap={1}
+                        >
+                            <AccountIconNavbar />
+                            <Cart />
+                        </Box>
                     </Grid>
                     <Grid
                         item

@@ -1,5 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
-import { Cart, Home, ItemDetail } from '../pages';
+import { Cart, Home, ItemDetail, Profile } from '../pages';
 import { LayoutApp } from '../layout';
 
 export const AppRouter = () => {
@@ -9,8 +9,11 @@ export const AppRouter = () => {
                 <Route exact path={'/'}>
                     <Home />
                 </Route>
-                <Route path={'/cart'}>
+                <Route exact path={'/cart'}>
                     <Cart />
+                </Route>
+                <Route exact path={'/profile/user/:id'}>
+                    <Profile />
                 </Route>
                 <Route exact path={'/item/:itemId'}>
                     <ItemDetail />

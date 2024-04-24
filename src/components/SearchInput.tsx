@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 
 export const SearchInput = () => {
     return (
@@ -12,6 +12,7 @@ export const SearchInput = () => {
                 overflow: 'hidden',
                 width: { xs: 'auto', md: '60%' },
                 display: 'flex',
+                height: 36,
             }}
             position={'relative'}
         >
@@ -40,9 +41,18 @@ export const SearchInput = () => {
                 justifyItems={'center'}
                 alignItems={'center'}
             >
-                <IconButton>
+                <Box
+                    component={'div'}
+                    sx={{
+                        width: 32,
+                        height: 36,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
                     <Search sx={{ fontSize: 24 }} color="primary" />
-                </IconButton>
+                </Box>
             </Box>
         </Box>
     );
