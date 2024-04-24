@@ -1,5 +1,5 @@
-import { Close } from '@mui/icons-material';
-import { Box, IconButton, Modal, Typography } from '@mui/material';
+import { Add, Close, Remove } from '@mui/icons-material';
+import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
 import { useEvents, useProducts } from '../store';
 import { ProductModal } from '../types';
 import { Link } from 'react-router-dom';
@@ -34,12 +34,12 @@ export const ModalItem = () => {
             >
                 <Box
                     bgcolor="white"
-                    width={{ xs: '100%', sm: '80%', md: '60%', lg: '60%' }}
+                    width={{ xs: '100%', sm: '80%', md: '60%', lg: '45%' }}
                     p={4}
                     borderRadius={2}
                     display="flex"
                     flexDirection={{ xs: 'column', sm: 'row', md: 'row' }}
-                    alignItems={{ xs: 'center', md: 'flex-start' }}
+                    alignItems={{ xs: 'center' }}
                     gap={3}
                     position="relative"
                 >
@@ -49,20 +49,29 @@ export const ModalItem = () => {
                     >
                         <Close />
                     </IconButton>
-                    <Box>
+                    <Box sx={{ flex: 1, display: 'flex' }}>
                         <img
                             src={productModal.image}
                             alt="image product"
                             style={{
-                                width: '150px',
+                                width: '100%',
                                 objectFit: 'contain',
                                 margin: 'auto',
                             }}
                         />
                     </Box>
 
-                    <Box maxWidth={350} display="flex" flexDirection="column">
-                        <Typography variant="h6" fontWeight="bold" mb={2}>
+                    <Box
+                        maxWidth={250}
+                        display="flex"
+                        alignItems={{ xs: 'center', sm: 'flex-start' }}
+                        flexDirection="column"
+                    >
+                        <Typography
+                            fontWeight="bold"
+                            mb={2}
+                            style={{ fontWeight: 'bold', fontSize: '1.1rem' }}
+                        >
                             {productModal.title}
                         </Typography>
                         <Box
@@ -127,6 +136,39 @@ export const ModalItem = () => {
                                         ).toFixed(2)}`}
                                     </Typography>
                                 </Typography>
+                                <Box
+                                    display="flex"
+                                    alignItems={'center'}
+                                    gap={1}
+                                    mt={2}
+                                >
+                                    <IconButton
+                                        aria-label="delete"
+                                        color="primary"
+                                    >
+                                        <Remove />
+                                    </IconButton>
+                                    <Typography
+                                        component="span"
+                                        fontWeight="bold"
+                                        fontSize={18}
+                                    >
+                                        1
+                                    </Typography>
+                                    <IconButton
+                                        aria-label="delete"
+                                        color="primary"
+                                    >
+                                        <Add />
+                                    </IconButton>
+                                </Box>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    style={{ marginTop: 10 }}
+                                >
+                                    Add to Cart
+                                </Button>
                             </Box>
                         </Box>
                     </Box>

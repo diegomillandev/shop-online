@@ -1,14 +1,11 @@
-import { AddShoppingCart, Visibility } from '@mui/icons-material';
+import { AddShoppingCart } from '@mui/icons-material';
 import {
-    Badge,
     Box,
     Card,
     CardContent,
     CardMedia,
     Grid,
-    IconButton,
     Rating,
-    Tooltip,
     Typography,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
@@ -16,14 +13,15 @@ import { Product } from '../types';
 import { useEvents, useProducts } from '../store';
 
 export const MuiCard = ({ product }: { product: Product }) => {
-    const [hovered, setHovered] = useState(false);
+    const [hovered, setHovered] = useState<Boolean>(false);
     const [openModal, setOpenModal] = useEvents((state) => [
         state.openModal,
         state.setOpenModal,
     ]);
     const setProductModal = useProducts((state) => state.setProductModal);
-    const handleHover = () => {
-        setHovered(!hovered);
+
+    const handleHover = (show: Boolean) => {
+        setHovered(show);
     };
 
     const randomDiscount = useMemo(
@@ -38,8 +36,8 @@ export const MuiCard = ({ product }: { product: Product }) => {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHover}
+                onMouseEnter={() => handleHover(true)}
+                onMouseLeave={() => handleHover(false)}
                 variant="outlined"
                 sx={{
                     height: '100%',
@@ -48,7 +46,9 @@ export const MuiCard = ({ product }: { product: Product }) => {
                         boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)',
                     },
                     position: 'relative',
+                    cursor: 'pointer',
                 }}
+                onClick={handleOpen}
             >
                 <CardContent
                     sx={{
@@ -79,12 +79,17 @@ export const MuiCard = ({ product }: { product: Product }) => {
                             textAlign={'center'}
                             noWrap={false}
                         >
-                            {`${product.title}`}
+                            {`${product.title.slice(0, 20)}...`}
                         </Typography>
                     </Box>
                     <Box marginTop={1} display={'flex'} alignItems={'center'}>
                         <Box flexGrow={1}>
-                            <Box display="flex" gap={0.5} alignItems="center">
+                            <Box
+                                display="flex"
+                                gap={0.5}
+                                alignItems="center"
+                                justifyContent={'center'}
+                            >
                                 <Rating
                                     size="small"
                                     name="read-only"
@@ -104,7 +109,7 @@ export const MuiCard = ({ product }: { product: Product }) => {
                             <Box
                                 display="flex"
                                 flexDirection={'column'}
-                                alignItems="start"
+                                alignItems="center"
                                 marginTop={1}
                             >
                                 <Typography
@@ -142,47 +147,6 @@ export const MuiCard = ({ product }: { product: Product }) => {
                                     </Typography>
                                 </Typography>
                             </Box>
-                        </Box>
-                        <Box
-                            display={'flex'}
-                            justifyContent={'end'}
-                            alignSelf={'end'}
-                        >
-                            <Tooltip title="Add Cart" placement="top">
-                                <IconButton
-                                    size="large"
-                                    color="inherit"
-                                    sx={{ position: 'relative' }}
-                                >
-                                    <Badge badgeContent={0} color="error">
-                                        <AddShoppingCart
-                                            sx={{
-                                                width: 30,
-                                                height: 30,
-                                            }}
-                                        />
-                                    </Badge>
-                                    <Typography
-                                        sx={{
-                                            position: 'absolute',
-                                            bgcolor: '#ca1f1f',
-                                            color: 'white',
-                                            borderRadius: '50%',
-                                            width: 15,
-                                            height: 15,
-                                            fontSize: 10,
-                                        }}
-                                        display={'none'}
-                                        justifyContent={'center'}
-                                        alignItems={'center'}
-                                        padding={1}
-                                        top={2}
-                                        right={4}
-                                    >
-                                        1
-                                    </Typography>
-                                </IconButton>
-                            </Tooltip>
                         </Box>
                     </Box>
                 </CardContent>
