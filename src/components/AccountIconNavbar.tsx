@@ -6,7 +6,9 @@ export const AccountIconNavbar = () => {
     return (
         <Link to={''}>
             <Box component={'div'}>
-                <AccountCircle sx={{ fontSize: 34, color: 'white' }} />
+                <AccountCircle
+                    sx={{ fontSize: 34, color: 'primary.contrastText' }}
+                />
             </Box>
         </Link>
     );

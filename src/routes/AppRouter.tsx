@@ -15,7 +15,7 @@ export const AppRouter = () => {
                 <Route exact path={'/profile/user/:id'}>
                     <Profile />
                 </Route>
-                <Route exact path={'/item/:itemId'}>
+                <Route exact path={'/item/:itemId/:percentage'}>
                     <ItemDetail />
                 </Route>
                 <Route path={'*'}>

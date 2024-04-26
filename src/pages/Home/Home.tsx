@@ -1,10 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import {
-    LoadingIndicator,
-    ModalItem,
-    MuiCard,
-    SelectCategory,
-} from '../../components';
+import { LoadingIndicator, MuiCard, SelectCategory } from '../../components';
 import { useProducts } from '../../store';
 import { useEffect, useState } from 'react';
 
@@ -37,7 +32,6 @@ export const Home = () => {
                     <LoadingIndicator />
                 )}
             </Grid>
-            <ModalItem />
         </Container>
     );
 };

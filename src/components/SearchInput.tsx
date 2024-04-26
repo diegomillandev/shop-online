@@ -34,7 +34,7 @@ export const SearchInput = () => {
                 sx={{
                     border: 'none',
                     cursor: 'pointer',
-                    bgcolor: '#ffb875',
+                    bgcolor: 'secondary.main',
                     alignSelf: 'end',
                 }}
                 display={'flex'}

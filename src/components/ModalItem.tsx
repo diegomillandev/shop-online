@@ -19,13 +19,16 @@ export const ModalItem = () => {
         setProductModal({} as ProductModal);
     };
 
+    const withImage = (): string => {
+        return (window.innerWidth < 600 ? 160 : 220) + 'px';
+    };
+
     return (
         <Modal open={openModal} onClose={handleOpen}>
             <Box
                 position="absolute"
                 minHeight="100vh"
                 width="100%"
-                bgcolor="rgba(0, 0, 0, 0.6)"
                 zIndex={99}
                 display="flex"
                 justifyContent="center"
@@ -34,7 +37,13 @@ export const ModalItem = () => {
             >
                 <Box
                     bgcolor="white"
-                    width={{ xs: '100%', sm: '80%', md: '60%', lg: '45%' }}
+                    width={{
+                        xs: '100%',
+                        sm: '80%',
+                        md: '60%',
+                        lg: '45%',
+                        xl: '35%',
+                    }}
                     p={4}
                     borderRadius={2}
                     display="flex"
@@ -42,6 +51,7 @@ export const ModalItem = () => {
                     alignItems={{ xs: 'center' }}
                     gap={3}
                     position="relative"
+                    paddingX={5}
                 >
                     <IconButton
                         onClick={handleOpen}
@@ -50,11 +60,12 @@ export const ModalItem = () => {
                         <Close />
                     </IconButton>
                     <Box sx={{ flex: 1, display: 'flex' }}>
-                        <img
+                        <Box
+                            component={'img'}
                             src={productModal.image}
                             alt="image product"
+                            width={withImage()}
                             style={{
-                                width: '100%',
                                 objectFit: 'contain',
                                 margin: 'auto',
                             }}
@@ -76,20 +87,23 @@ export const ModalItem = () => {
                         </Typography>
                         <Box
                             sx={{
-                                bgcolor: 'secondary.main',
+                                bgcolor: 'secondary.light',
                                 paddingX: 1.5,
                                 paddingY: 0.5,
                                 borderRadius: 1,
                                 cursor: 'pointer',
                                 display: 'inline',
                                 '&:hover': {
-                                    bgcolor: '#ffab5c',
+                                    bgcolor: 'secondary.main',
                                 },
                                 width: 'fit-content',
                             }}
                             component={'span'}
                         >
-                            <Link to={`/item/${productModal.id}`}>
+                            <Link
+                                to={`/item/${productModal.id}/${productModal.percentage}`}
+                                onClick={handleOpen}
+                            >
                                 <Typography>View product details</Typography>
                             </Link>
                         </Box>
@@ -137,38 +151,44 @@ export const ModalItem = () => {
                                     </Typography>
                                 </Typography>
                                 <Box
-                                    display="flex"
+                                    display={'flex'}
+                                    flexDirection={'column'}
                                     alignItems={'center'}
-                                    gap={1}
-                                    mt={2}
                                 >
-                                    <IconButton
-                                        aria-label="delete"
+                                    <Box
+                                        display="flex"
+                                        alignItems={'center'}
+                                        gap={1}
+                                        mt={2}
+                                    >
+                                        <IconButton
+                                            aria-label="delete"
+                                            color="primary"
+                                        >
+                                            <Remove />
+                                        </IconButton>
+                                        <Typography
+                                            component="span"
+                                            fontWeight="bold"
+                                            fontSize={18}
+                                        >
+                                            1
+                                        </Typography>
+                                        <IconButton
+                                            aria-label="delete"
+                                            color="primary"
+                                        >
+                                            <Add />
+                                        </IconButton>
+                                    </Box>
+                                    <Button
+                                        variant="contained"
                                         color="primary"
+                                        style={{ marginTop: 10 }}
                                     >
-                                        <Remove />
-                                    </IconButton>
-                                    <Typography
-                                        component="span"
-                                        fontWeight="bold"
-                                        fontSize={18}
-                                    >
-                                        1
-                                    </Typography>
-                                    <IconButton
-                                        aria-label="delete"
-                                        color="primary"
-                                    >
-                                        <Add />
-                                    </IconButton>
+                                        Add to Cart
+                                    </Button>
                                 </Box>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginTop: 10 }}
-                                >
-                                    Add to Cart
-                                </Button>
                             </Box>
                         </Box>
                     </Box>
