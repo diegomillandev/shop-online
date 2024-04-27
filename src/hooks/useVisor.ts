@@ -18,7 +18,7 @@ export const useVisorVisibility = (initialCuantity = 0, increment = 4) => {
         const observer = new IntersectionObserver(observerCallback, {
             root: null,
             rootMargin: '0px',
-            threshold: 0.5, // when 50% of the element is visible
+            threshold: 1, // when 50% of the element is visible
         });
 
         // Observe the "viewfinder" element to know when it is visible on the screen

@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { LoadingIndicator, MuiCard } from '../../components';
 import { useEffect, useState } from 'react';
 import { Product } from '../../types';
-import axios from 'axios';
+import { getProductById, getProductsByCategory } from '../../services';
 
 type Params = {
     itemId: string;
@@ -32,63 +32,43 @@ const productIntialState = {
     },
 };
 
-const BASE_URL = 'https://fakestoreapi.com/products';
-
-const getElementById = async (id: number): Promise<Product | null> => {
-    try {
-        const response = await axios.get(`${BASE_URL}/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error al obtener el elemento por ID: ${error}`);
-        return null;
-    }
-};
-
-const getProductsByCategory = async (
-    category: string
-): Promise<Product[] | null> => {
-    try {
-        const response = await axios.get(`${BASE_URL}/category/${category}`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error al obtener productos por categoría: ${error}`);
-        return null;
-    }
-};
-
 export const ItemDetail = () => {
     const { itemId, percentage } = useParams<Params>();
+    const [products, setProducts] = useState<Product[]>([]);
 
     const [productDetail, setProductDetail] =
         useState<Product>(productIntialState);
-    const [products, setProducts] = useState<Product[]>([]);
 
     const withImage = (): string => {
         return `${window.innerWidth < 600 ? 160 : 320}px`;
     };
 
+    const fetchProductDetail = async () => {
+        const { data } = await getProductById(+itemId);
+        setProductDetail(data);
+    };
+
+    const getProductsCategory = async (category: string) => {
+        const { data } = await getProductsByCategory(category);
+        if (data.length > 0) setProducts(products.concat(data));
+    };
+
     useEffect(() => {
-        const fetchProductDetail = async () => {
-            const data = await getElementById(+itemId);
-            if (data) {
-                setProductDetail(data);
-            }
-        };
-        fetchProductDetail();
+        try {
+            fetchProductDetail();
+        } catch (error) {
+            console.error(`Error al obtener el producto por ID: ${error}`);
+        }
     }, [itemId]);
 
     useEffect(() => {
-        const fetchProductsByCategory = async () => {
-            if (productDetail && productDetail.category) {
-                const data = await getProductsByCategory(
-                    productDetail.category
-                );
-                if (data) {
-                    setProducts(data);
-                }
-            }
-        };
-        fetchProductsByCategory();
+        try {
+            getProductsCategory(productDetail.category);
+        } catch (error) {
+            console.error(
+                `Error al obtener los productos por categoria: ${error}`
+            );
+        }
     }, [productDetail]);
 
     useEffect(() => {
@@ -100,6 +80,7 @@ export const ItemDetail = () => {
     const filterProducts = products.filter(
         (product) => product.id !== productDetail.id
     );
+
     return (
         <>
             {productDetail.id !== 0 ? (

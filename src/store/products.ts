@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Product, ProductModal } from '../types';
+import { getCategories, getProductsCuantity } from '../services';
 
 interface State {
     products: Product[];
@@ -15,16 +16,16 @@ export const useProducts = create<State>((set) => ({
     categories: [],
     productModal: {} as ProductModal,
     getProducts: async (cuantity: number) => {
-        const res = await fetch(
-            `https://fakestoreapi.com/products?limit=${cuantity}`
-        );
-        const data = await res.json();
-        set({ products: data });
+        try {
+            const { data } = await getProductsCuantity(cuantity);
+            set({ products: data });
+        } catch (error) {}
     },
     getAllCategories: async () => {
-        const res = await fetch('https://fakestoreapi.com/products/categories');
-        const data = await res.json();
-        set({ categories: data });
+        try {
+            const { data } = await getCategories();
+            set({ categories: data });
+        } catch (error) {}
     },
     setProductModal: (ProductModal: ProductModal) => {
         set({ productModal: ProductModal });

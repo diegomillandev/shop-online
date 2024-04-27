@@ -17,6 +17,11 @@ export const Home = () => {
         getProducts(cuantity);
     }, [cuantity]);
 
+    useEffect(() => {
+        if (searchItem !== '') {
+            setCategory('');
+        }
+    }, [searchItem]);
     const getProductsByCategory =
         category !== 'All Categories' && category
             ? products?.filter((product) => product.category === category)
