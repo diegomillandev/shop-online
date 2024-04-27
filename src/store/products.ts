@@ -5,7 +5,7 @@ interface State {
     products: Product[];
     categories: string[];
     productModal: ProductModal;
-    getAllProducts: () => Promise<void>;
+    getProducts: (cuantity: number) => Promise<void>;
     getAllCategories: () => Promise<void>;
     setProductModal: (product: ProductModal) => void;
 }
@@ -14,8 +14,10 @@ export const useProducts = create<State>((set) => ({
     products: [],
     categories: [],
     productModal: {} as ProductModal,
-    getAllProducts: async () => {
-        const res = await fetch('https://fakestoreapi.com/products');
+    getProducts: async (cuantity: number) => {
+        const res = await fetch(
+            `https://fakestoreapi.com/products?limit=${cuantity}`
+        );
         const data = await res.json();
         set({ products: data });
     },

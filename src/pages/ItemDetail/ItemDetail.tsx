@@ -91,6 +91,12 @@ export const ItemDetail = () => {
         fetchProductsByCategory();
     }, [productDetail]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setProductDetail(productIntialState);
+        setProducts([]);
+    }, [itemId]);
+
     const filterProducts = products.filter(
         (product) => product.id !== productDetail.id
     );
