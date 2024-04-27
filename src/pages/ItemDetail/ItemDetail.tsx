@@ -155,7 +155,7 @@ export const ItemDetail = () => {
                                             <Typography
                                                 component="span"
                                                 fontSize={13}
-                                                color={'primary.light'}
+                                                color={'primary.dark'}
                                                 marginTop={-0.5}
                                             >
                                                 List Price:{' '}
