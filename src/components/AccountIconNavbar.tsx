@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 export const AccountIconNavbar = () => {
     return (
         <Link to={''}>
-            <Box component={'div'}>
-                <AccountCircle
-                    sx={{ fontSize: 34, color: 'primary.contrastText' }}
-                />
+            <Box mt={0.5} component={'div'} color={'primary.contrastText'}>
+                <AccountCircle fontSize="large" />
             </Box>
         </Link>
     );

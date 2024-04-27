@@ -7,14 +7,13 @@ export const Cart = () => {
         <Link to={'/cart'}>
             <Box
                 component={'div'}
-                sx={{ display: 'flex', color: 'primary.contrastText' }}
+                color={'primary.contrastText'}
+                display={'flex'}
             >
                 <Badge badgeContent={0} color="error">
-                    <ShoppingCart
-                        sx={{ fontSize: 34, color: 'primary.contrastText' }}
-                    />
+                    <ShoppingCart fontSize="large" />
                 </Badge>
-                <Typography variant="h6" sx={{ alignSelf: 'end' }}>
+                <Typography variant="h6" alignSelf={'end'}>
                     Cart
                 </Typography>
             </Box>

@@ -1,7 +1,9 @@
 import { Search } from '@mui/icons-material';
 import { Box } from '@mui/material';
+import { useEvents } from '../store';
 
 export const SearchInput = () => {
+    const [setSearchItem] = useEvents((state) => [state.setSearchItem]);
     return (
         <Box
             component={'div'}
@@ -28,6 +30,7 @@ export const SearchInput = () => {
                         outline: 'none',
                     },
                 }}
+                onChange={(e) => setSearchItem(e.target.value.trim())}
             ></Box>
             <Box
                 component={'button'}

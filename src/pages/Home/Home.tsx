@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from '@mui/material';
 import { LoadingIndicator, MuiCard, SelectCategory } from '../../components';
-import { useProducts } from '../../store';
+import { useEvents, useProducts } from '../../store';
 import { useEffect, useState } from 'react';
 import { useVisorVisibility } from '../../hooks';
 
@@ -11,6 +11,7 @@ export const Home = () => {
         state.products,
         state.getProducts,
     ]);
+    const searchItem = useEvents((state) => state.searchItem);
 
     useEffect(() => {
         getProducts(cuantity);
@@ -19,6 +20,10 @@ export const Home = () => {
     const getProductsByCategory =
         category !== 'All Categories' && category
             ? products?.filter((product) => product.category === category)
+            : searchItem !== ''
+            ? products?.filter((product) =>
+                  product.title.toLowerCase().includes(searchItem.toLowerCase())
+              )
             : products;
 
     return (

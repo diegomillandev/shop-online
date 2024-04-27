@@ -64,7 +64,7 @@ export const ItemDetail = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     const withImage = (): string => {
-        return `${window.innerWidth < 600 ? 160 : 280}px`;
+        return `${window.innerWidth < 600 ? 160 : 320}px`;
     };
 
     useEffect(() => {
@@ -111,17 +111,14 @@ export const ItemDetail = () => {
                             sm={12}
                             md={6}
                             display={'flex'}
-                            sx={{ justifyContent: 'center' }}
+                            justifyContent={'center'}
                         >
                             <Box
                                 component={'img'}
                                 src={productDetail?.image}
                                 alt="image product"
                                 width={withImage()}
-                                style={{
-                                    objectFit: 'contain',
-                                    margin: 'auto',
-                                }}
+                                m={'auto'}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
@@ -133,14 +130,7 @@ export const ItemDetail = () => {
                                     {productDetail?.description}
                                 </Typography>
                             </Box>
-                            <CardContent
-                                sx={{
-                                    marginTop: 2,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    padding: 0,
-                                }}
-                            >
+                            <CardContent>
                                 <Box display={'flex'}>
                                     <Box flexGrow={1}>
                                         <Box display="flex" gap={0.5}>
@@ -174,7 +164,7 @@ export const ItemDetail = () => {
                                             >
                                                 <Typography
                                                     component="span"
-                                                    color={'#e00d0d'}
+                                                    color={'error.main'}
                                                     fontWeight={'medium'}
                                                 >
                                                     -{`${percentage}`}%
@@ -184,24 +174,24 @@ export const ItemDetail = () => {
                                             <Typography
                                                 component="span"
                                                 fontSize={13}
-                                                color={'#585858'}
+                                                color={'primary.light'}
                                                 marginTop={-0.5}
                                             >
                                                 List Price:{' '}
-                                                <Typography
+                                                <Box
                                                     component="span"
+                                                    fontSize={14}
                                                     sx={{
                                                         textDecoration:
                                                             'line-through',
                                                     }}
-                                                    fontSize={14}
                                                 >
                                                     {`${(
                                                         productDetail?.price +
                                                         productDetail?.price *
                                                             (+percentage / 100)
                                                     ).toFixed(2)}`}
-                                                </Typography>
+                                                </Box>
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -217,6 +207,7 @@ export const ItemDetail = () => {
                                     alignItems={'center'}
                                     gap={1}
                                     mt={2}
+                                    mb={4}
                                 >
                                     <IconButton
                                         aria-label="delete"
@@ -242,7 +233,6 @@ export const ItemDetail = () => {
                                     variant="contained"
                                     color="primary"
                                     sx={{
-                                        marginTop: 3,
                                         width: { xs: '100%', md: '70%' },
                                     }}
                                 >
@@ -264,7 +254,8 @@ export const ItemDetail = () => {
                 <Grid
                     container
                     spacing={5}
-                    sx={{ mt: 0.5, mb: 5 }}
+                    mt={0.5}
+                    mb={5}
                     justifyContent={'center'}
                 >
                     {products.length !== 0 ? (
