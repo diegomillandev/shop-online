@@ -8,10 +8,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ItemCartMobile, ItemCart } from '.';
+import { useCart } from '../store/cart';
 
 type OrientTable = 'landscape' | 'mobile';
 
 export const TableCart = () => {
+    const [cart] = useCart((state) => [state.cart]);
     const [orientTable, setOrientTable] = useState<OrientTable>('landscape');
 
     const handleResize = () => {
@@ -20,7 +22,6 @@ export const TableCart = () => {
         } else {
             setOrientTable('landscape');
         }
-        console.log(orientTable, window.innerWidth);
     };
 
     useEffect(() => {
@@ -41,21 +42,23 @@ export const TableCart = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">Product</TableCell>
-
                             <TableCell align="center">Price</TableCell>
-
                             <TableCell align="center">Quantity</TableCell>
                             <TableCell align="center">Total</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <ItemCart />
+                        {cart.map((item) => (
+                            <ItemCart key={item.id} item={item} />
+                        ))}
                     </TableBody>
                 </Table>
             ) : (
                 <Grid container>
-                    <ItemCartMobile />
+                    {cart.map((item) => (
+                        <ItemCartMobile key={item.id} item={item} />
+                    ))}
                 </Grid>
             )}
         </>

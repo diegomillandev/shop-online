@@ -7,11 +7,12 @@ import {
     IconButton,
     Typography,
 } from '@mui/material';
+import { CartItem } from '../types';
 
-export const ItemCartMobile = () => {
+export const ItemCartMobile = ({ item }: { item: CartItem }) => {
     return (
         <>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={3}>
                 <Grid container alignItems={'center'} px={0.5}>
                     <Grid item xs={3}>
                         <CardMedia
@@ -20,18 +21,13 @@ export const ItemCartMobile = () => {
                             sx={{
                                 objectFit: 'contain',
                             }}
-                            image={
-                                'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
-                            }
+                            image={item.image}
                             component={'img'}
                         ></CardMedia>
                     </Grid>
                     <Grid item xs={8}>
                         <Typography component={'div'} textAlign={'left'}>
-                            {`${"John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet".slice(
-                                0,
-                                22
-                            )}...`}
+                            {`${item.title.slice(0, 22)}...`}
                         </Typography>
                     </Grid>
                     <Grid item xs={1}>
@@ -71,7 +67,7 @@ export const ItemCartMobile = () => {
                             <Remove />
                         </Box>
                         <Box component={'span'} mx={1} fontWeight={'bold'}>
-                            1
+                            {item.quantity}
                         </Box>
                         <Box
                             component={'button'}
@@ -101,7 +97,7 @@ export const ItemCartMobile = () => {
                         Total
                     </Typography>
                     <Typography variant="body1" fontWeight={'bold'}>
-                        $133.00
+                        {`$${(item.price * item.quantity).toFixed(2)}`}
                     </Typography>
                 </Grid>
             </Grid>

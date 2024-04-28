@@ -1,26 +1,49 @@
 import { Add, Close, Remove } from '@mui/icons-material';
 import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
 import { useEvents, useProducts } from '../store';
-import { ProductModal } from '../types';
+import { CartItem, ProductModal } from '../types';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useCart } from '../store/cart';
 
 export const ModalItem = () => {
-    const [openModal, setOpenModal] = useEvents((state) => [
-        state.openModal,
-        state.setOpenModal,
-    ]);
+    const [cart, addToCart] = useCart((state) => [state.cart, state.addToCart]);
     const [productModal, setProductModal] = useProducts((state) => [
         state.productModal,
         state.setProductModal,
     ]);
+    const [quantity, setQuantity] = useState(0);
+    const [openModal, setOpenModal] = useEvents((state) => [
+        state.openModal,
+        state.setOpenModal,
+    ]);
+
+    useEffect(() => {
+        setQuantity(
+            cart.find((item) => item.id === productModal.id)?.quantity || 1
+        );
+    }, [cart, productModal.id]);
 
     const handleOpen = () => {
         setOpenModal(!openModal);
         setProductModal({} as ProductModal);
+        setQuantity(1);
     };
 
     const withImage = (): string => {
         return (window.innerWidth < 600 ? 160 : 220) + 'px';
+    };
+
+    const handleAddToCart = () => {
+        const newItem: CartItem = {
+            id: productModal.id,
+            title: productModal.title,
+            price: productModal.price,
+            image: productModal.image,
+            quantity: quantity,
+        };
+        addToCart(newItem);
+        handleOpen();
     };
 
     return (
@@ -155,39 +178,91 @@ export const ModalItem = () => {
                                     flexDirection={'column'}
                                     alignItems={'center'}
                                 >
-                                    <Box
-                                        display="flex"
-                                        alignItems={'center'}
-                                        gap={1}
-                                        mt={2}
-                                    >
-                                        <IconButton
-                                            aria-label="delete"
-                                            color="primary"
-                                        >
-                                            <Remove />
-                                        </IconButton>
-                                        <Typography
+                                    {cart.find(
+                                        (item) => item.id === productModal.id
+                                    ) && (
+                                        <Box
                                             component="span"
-                                            fontWeight="bold"
-                                            fontSize={18}
+                                            fontSize={10}
+                                            bgcolor={'secondary.contrastText'}
+                                            mt={2}
+                                            py={0.5}
+                                            px={1.5}
                                         >
-                                            1
-                                        </Typography>
-                                        <IconButton
-                                            aria-label="delete"
-                                            color="primary"
-                                        >
-                                            <Add />
-                                        </IconButton>
-                                    </Box>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        style={{ marginTop: 10 }}
+                                            <Typography
+                                                fontSize={13}
+                                                color={'primary.dark'}
+                                            >
+                                                You have
+                                                <Typography
+                                                    component="span"
+                                                    fontWeight="bold"
+                                                    color={'error'}
+                                                    fontSize={14}
+                                                >{` ${
+                                                    cart.find(
+                                                        (item) =>
+                                                            item.id ===
+                                                            productModal.id
+                                                    )?.quantity
+                                                } `}</Typography>
+                                                items in your cart
+                                            </Typography>
+                                        </Box>
+                                    )}
+                                    <Box
+                                        alignSelf={'start'}
+                                        display={'flex'}
+                                        flexDirection={'column'}
+                                        alignItems={'center'}
                                     >
-                                        Add to Cart
-                                    </Button>
+                                        <Box
+                                            display="flex"
+                                            alignItems={'center'}
+                                            gap={1}
+                                            mt={2}
+                                        >
+                                            <IconButton
+                                                aria-label="delete"
+                                                color="primary"
+                                                onClick={() =>
+                                                    setQuantity(quantity - 1)
+                                                }
+                                                disabled={quantity === 1}
+                                            >
+                                                <Remove />
+                                            </IconButton>
+                                            <Typography
+                                                component="span"
+                                                fontWeight="bold"
+                                                fontSize={18}
+                                            >
+                                                {quantity}
+                                            </Typography>
+                                            <IconButton
+                                                aria-label="delete"
+                                                color="primary"
+                                                onClick={() =>
+                                                    setQuantity(quantity + 1)
+                                                }
+                                                disabled={quantity === 10}
+                                            >
+                                                <Add />
+                                            </IconButton>
+                                        </Box>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleAddToCart}
+                                        >
+                                            {cart.find(
+                                                (item) =>
+                                                    item.id === productModal.id
+                                            )?.quantity
+                                                ? 'Update Cart'
+                                                : 'Add to Cart'}
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>

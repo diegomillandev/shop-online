@@ -14,3 +14,8 @@ export interface Product {
 export interface ProductModal extends Product {
     percentage: number;
 }
+
+export interface CartItem
+    extends Pick<Product, 'id' | 'title' | 'price' | 'image'> {
+    quantity: number;
+}

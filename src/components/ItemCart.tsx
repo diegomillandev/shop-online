@@ -7,8 +7,18 @@ import {
     TableRow,
     Typography,
 } from '@mui/material';
+import { CartItem } from '../types';
+import { useCart } from '../store/cart';
 
-export const ItemCart = () => {
+export const ItemCart = ({ item }: { item: CartItem }) => {
+    const [deleteItemCart, subQuantityItem, addQuantityItem] = useCart(
+        (state) => [
+            state.deleteItemCart,
+            state.subQuantityItem,
+            state.addQuantityItem,
+        ]
+    );
+
     return (
         <TableRow>
             <TableCell variant="head">
@@ -19,21 +29,16 @@ export const ItemCart = () => {
                         sx={{
                             objectFit: 'contain',
                         }}
-                        image={
-                            'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
-                        }
+                        image={item.image}
                         component={'img'}
                     ></CardMedia>
                     <Typography component={'span'}>
-                        {`${"John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet".slice(
-                            0,
-                            14
-                        )}...`}
+                        {`${item.title.slice(0, 16)}...`}
                     </Typography>
                 </Box>
             </TableCell>
 
-            <TableCell align="center">$10.00</TableCell>
+            <TableCell align="center">{`$${item.price}`}</TableCell>
 
             <TableCell>
                 <Box
@@ -52,11 +57,14 @@ export const ItemCart = () => {
                         display={'flex'}
                         alignItems={'center'}
                         justifyContent={'center'}
+                        onClick={() => subQuantityItem(item.id)}
+                        disabled={item.quantity === 0}
+                        sx={{ cursor: 'pointer' }}
                     >
                         <Remove />
                     </Box>
                     <Box component={'span'} mx={1} fontWeight={'bold'}>
-                        1
+                        {item.quantity}
                     </Box>
                     <Box
                         component={'button'}
@@ -69,14 +77,19 @@ export const ItemCart = () => {
                         display={'flex'}
                         alignItems={'center'}
                         justifyContent={'center'}
+                        onClick={() => addQuantityItem(item.id)}
+                        disabled={item.quantity === 10}
+                        sx={{ cursor: 'pointer' }}
                     >
                         <Add />
                     </Box>
                 </Box>
             </TableCell>
-            <TableCell align="center">$20.00</TableCell>
+            <TableCell align="center">{`$${(item.price * item.quantity).toFixed(
+                2
+            )}`}</TableCell>
             <TableCell>
-                <IconButton>
+                <IconButton onClick={() => deleteItemCart(item.id)}>
                     <DeleteForever color="error" />
                 </IconButton>
             </TableCell>

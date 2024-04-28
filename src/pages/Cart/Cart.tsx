@@ -1,9 +1,28 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import { TableCart } from '../../components';
 import { Delete, Replay } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useCart } from '../../store/cart';
+import { useEffect } from 'react';
 
 export const Cart = () => {
+    const [cart, clearCart] = useCart((state) => [state.cart, state.clearCart]);
+    const history = useHistory();
+
+    const subTotal = cart.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+    );
+    const totalCart = subTotal;
+
+    useEffect(() => {
+        if (cart.length === 0) {
+            setTimeout(() => {
+                history.push('/');
+            }, 500);
+        }
+    }, [cart]);
+
     return (
         <Grid container gap={1}>
             <Grid
@@ -25,7 +44,7 @@ export const Cart = () => {
                 <Typography
                     component={'p'}
                     my={2}
-                    bgcolor={'secondary.light'}
+                    bgcolor={'secondary.contrastText'}
                     py={1}
                     color={'error.main'}
                     fontSize={13}
@@ -42,13 +61,18 @@ export const Cart = () => {
                     alignItems={'center'}
                     justifyContent={'space-between'}
                 >
-                    <Box display={'flex'} alignItems={'center'}>
+                    <Box
+                        display={'flex'}
+                        alignItems={'center'}
+                        sx={{ cursor: 'pointer' }}
+                    >
                         <Delete color="error" fontSize="small" />
                         <Typography
                             component={'div'}
                             fontWeight={'semibold'}
                             color={'error'}
                             mt={0.5}
+                            onClick={() => clearCart()}
                         >
                             Clear Cart
                         </Typography>
@@ -99,7 +123,7 @@ export const Cart = () => {
                         >
                             Subtotal
                         </Typography>
-                        <Typography>$35.00</Typography>
+                        <Typography>{`$${subTotal}`}</Typography>
                     </Box>
                     <Box display={'flex'} justifyContent={'space-between'}>
                         <Typography
@@ -109,7 +133,7 @@ export const Cart = () => {
                         >
                             Shipping
                         </Typography>
-                        <Typography>$5.00</Typography>
+                        <Typography color={'success.main'}>free</Typography>
                     </Box>
                     <Box
                         display={'flex'}
@@ -123,10 +147,10 @@ export const Cart = () => {
                         >
                             Total
                         </Typography>
-                        <Typography>$40.00</Typography>
+                        <Typography>{`$${totalCart}`}</Typography>
                     </Box>
-                    <Button variant="contained" fullWidth color="secondary">
-                        Contained
+                    <Button variant="contained" fullWidth color="primary">
+                        Finish Order
                     </Button>
                 </Box>
             </Grid>
