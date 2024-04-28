@@ -1,4 +1,4 @@
-import { AddShoppingCart } from '@mui/icons-material';
+import { AddShoppingCart, ShoppingCart } from '@mui/icons-material';
 import {
     Box,
     Card,
@@ -11,8 +11,9 @@ import {
 import { useMemo, useState } from 'react';
 import { Product } from '../types';
 import { useEvents, useProducts } from '../store';
-
+import { useCart } from '../store/cart';
 export const MuiCard = ({ product }: { product: Product }) => {
+    const cart = useCart((state) => state.cart);
     const [hovered, setHovered] = useState<Boolean>(false);
     const [openModal, setOpenModal] = useEvents((state) => [
         state.openModal,
@@ -50,6 +51,48 @@ export const MuiCard = ({ product }: { product: Product }) => {
                 }}
                 onClick={handleOpen}
             >
+                {cart.find((item) => item.id === product.id)?.quantity && (
+                    <>
+                        <Box
+                            position={'absolute'}
+                            width={'100%'}
+                            height={'100%'}
+                            border={2}
+                            borderColor={'success.main'}
+                            zIndex={100}
+                        ></Box>
+                        <Box
+                            position={'absolute'}
+                            width={'30%'}
+                            height={'10%'}
+                            color={'success.main'}
+                            display={'flex'}
+                            justifyContent={'center'}
+                            alignItems={'center'}
+                            bgcolor={'secondary.contrastText'}
+                            top={30}
+                            borderRadius={1}
+                            zIndex={99}
+                        >
+                            <Typography
+                                variant="body1"
+                                component="div"
+                                fontSize={16}
+                                fontWeight={'bold'}
+                                color={'success.main'}
+                                textAlign={'center'}
+                                borderRadius={1}
+                                padding={0.5}
+                            >
+                                {`${
+                                    cart.find((item) => item.id === product.id)
+                                        ?.quantity
+                                } in`}
+                            </Typography>
+                            <ShoppingCart fontSize="small" />
+                        </Box>
+                    </>
+                )}
                 <CardContent
                     sx={{
                         display: 'flex',
@@ -136,7 +179,9 @@ export const MuiCard = ({ product }: { product: Product }) => {
                                     List Price:{' '}
                                     <Typography
                                         component="span"
-                                        sx={{ textDecoration: 'line-through' }}
+                                        sx={{
+                                            textDecoration: 'line-through',
+                                        }}
                                         fontSize={14}
                                     >
                                         {`$${(
