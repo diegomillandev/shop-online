@@ -33,7 +33,6 @@ export const MuiNavbar = () => {
                             component={'div'}
                             display={'flex'}
                             alignItems={'center'}
-                            gap={1}
                         >
                             <AccountIconNavbar />
                             <Cart />

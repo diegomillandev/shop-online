@@ -1,6 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter } from 'react-router-dom';
-import { ModalItem } from './components';
+import { ModalItem, ModalLogin } from './components';
 import { SnackbarUtilitiesCongifurator } from './helpers/snackbar.manager';
 import { AppRouter } from './routes';
 import { AppTheme } from './theme';
@@ -14,6 +14,7 @@ export const App = () => {
                     <AppTheme>
                         <AppRouter />
                         <ModalItem />
+                        <ModalLogin />
                     </AppTheme>
                 </BrowserRouter>
             </SnackbarProvider>

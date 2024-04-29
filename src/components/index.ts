@@ -5,6 +5,7 @@ export * from './ItemCartMobile';
 export * from './LoadingIndicator';
 export * from './Logo';
 export * from './ModalItem';
+export * from './ModalLogin';
 export * from './MuiCard';
 export * from './MuiNavbar';
 export * from './SearchInput';

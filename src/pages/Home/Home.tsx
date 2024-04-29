@@ -14,7 +14,7 @@ export const Home = () => {
     const searchItem = useEvents((state) => state.searchItem);
 
     useEffect(() => {
-        document.title = 'FakeStore - Home';
+        document.title = 'FakeStore';
     }, []);
 
     useEffect(() => {

@@ -6,7 +6,7 @@ export const LayoutApp = ({ children }: { children: React.ReactNode }) => {
         <>
             <MuiNavbar />
             <Container>
-                <Box marginTop={{ xs: 16, sm: 12 }} marginBottom={6}>
+                <Box marginTop={{ xs: 18, sm: 12 }} marginBottom={6}>
                     {children}
                 </Box>
             </Container>
