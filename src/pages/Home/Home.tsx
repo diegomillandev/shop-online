@@ -15,9 +15,11 @@ export const Home = () => {
 
     useEffect(() => {
         document.title = 'FakeStore';
+        getProducts(cuantity);
     }, []);
 
     useEffect(() => {
+        getProducts(cuantity);
         getProducts(cuantity);
     }, [cuantity]);
 
