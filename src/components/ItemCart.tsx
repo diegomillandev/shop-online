@@ -7,8 +7,8 @@ import {
     TableRow,
     Typography,
 } from '@mui/material';
-import { CartItem } from '../types';
 import { useCart } from '../store/cart';
+import { CartItem } from '../types';
 
 export const ItemCart = ({ item }: { item: CartItem }) => {
     const [deleteItemCart, subQuantityItem, addQuantityItem] = useCart(
@@ -16,7 +16,7 @@ export const ItemCart = ({ item }: { item: CartItem }) => {
             state.deleteItemCart,
             state.subQuantityItem,
             state.addQuantityItem,
-        ]
+        ],
     );
 
     return (
@@ -24,8 +24,7 @@ export const ItemCart = ({ item }: { item: CartItem }) => {
             <TableCell variant="head">
                 <Box display={'flex'} alignItems={'center'} maxWidth={280}>
                     <CardMedia
-                        width={100}
-                        height={120}
+                        height={70}
                         sx={{
                             objectFit: 'contain',
                         }}
@@ -86,7 +85,7 @@ export const ItemCart = ({ item }: { item: CartItem }) => {
                 </Box>
             </TableCell>
             <TableCell align="center">{`$${(item.price * item.quantity).toFixed(
-                2
+                2,
             )}`}</TableCell>
             <TableCell>
                 <IconButton onClick={() => deleteItemCart(item.id)}>

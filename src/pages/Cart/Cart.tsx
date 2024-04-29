@@ -1,9 +1,9 @@
-import { Box, Button, Divider, Grid, Typography } from '@mui/material';
-import { TableCart } from '../../components';
 import { Delete, Replay } from '@mui/icons-material';
-import { Link, useHistory } from 'react-router-dom';
-import { useCart } from '../../store/cart';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { TableCart } from '../../components';
+import { useCart } from '../../store/cart';
 
 export const Cart = () => {
     const [cart, clearCart] = useCart((state) => [state.cart, state.clearCart]);
@@ -11,7 +11,7 @@ export const Cart = () => {
 
     const subTotal = cart.reduce(
         (acc, item) => acc + item.price * item.quantity,
-        0
+        0,
     );
     const totalCart = subTotal;
 
@@ -23,6 +23,9 @@ export const Cart = () => {
         }
     }, [cart]);
 
+    useEffect(() => {
+        document.title = 'FakeStore - Cart';
+    }, []);
     return (
         <Grid container gap={1}>
             <Grid

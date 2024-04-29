@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Product, ProductModal } from '../types';
 import { getCategories, getProductsCuantity } from '../services';
+import { Product, ProductModal } from '../types';
 
 interface State {
     products: Product[];

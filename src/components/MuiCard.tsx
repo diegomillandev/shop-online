@@ -9,9 +9,9 @@ import {
     Typography,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
-import { Product } from '../types';
 import { useEvents, useProducts } from '../store';
 import { useCart } from '../store/cart';
+import { Product } from '../types';
 export const MuiCard = ({ product }: { product: Product }) => {
     const cart = useCart((state) => state.cart);
     const [hovered, setHovered] = useState<Boolean>(false);
@@ -27,7 +27,7 @@ export const MuiCard = ({ product }: { product: Product }) => {
 
     const randomDiscount = useMemo(
         () => Math.floor(Math.random() * 20) + 5,
-        []
+        [],
     );
     const handleOpen = () => {
         setOpenModal(!openModal);

@@ -1,8 +1,8 @@
 import { Box, Container, Grid } from '@mui/material';
-import { LoadingIndicator, MuiCard, SelectCategory } from '../../components';
-import { useEvents, useProducts } from '../../store';
 import { useEffect, useState } from 'react';
+import { LoadingIndicator, MuiCard, SelectCategory } from '../../components';
 import { useVisorVisibility } from '../../hooks';
+import { useEvents, useProducts } from '../../store';
 
 export const Home = () => {
     const [category, setCategory] = useState('');
@@ -12,6 +12,10 @@ export const Home = () => {
         state.getProducts,
     ]);
     const searchItem = useEvents((state) => state.searchItem);
+
+    useEffect(() => {
+        document.title = 'FakeStore - Home';
+    }, []);
 
     useEffect(() => {
         getProducts(cuantity);
@@ -26,10 +30,12 @@ export const Home = () => {
         category !== 'All Categories' && category
             ? products?.filter((product) => product.category === category)
             : searchItem !== ''
-            ? products?.filter((product) =>
-                  product.title.toLowerCase().includes(searchItem.toLowerCase())
-              )
-            : products;
+              ? products?.filter((product) =>
+                    product.title
+                        .toLowerCase()
+                        .includes(searchItem.toLowerCase()),
+                )
+              : products;
 
     return (
         <Container maxWidth="lg">

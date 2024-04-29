@@ -9,11 +9,12 @@ import {
     Rating,
     Typography,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { LoadingIndicator, MuiCard } from '../../components';
-import { useEffect, useState } from 'react';
-import { Product } from '../../types';
 import { getProductById, getProductsByCategory } from '../../services';
+import { useCart } from '../../store/cart';
+import { CartItem, Product } from '../../types';
 
 type Params = {
     itemId: string;
@@ -34,6 +35,8 @@ const productIntialState = {
 
 export const ItemDetail = () => {
     const { itemId, percentage } = useParams<Params>();
+    const [cart, addToCart] = useCart((state) => [state.cart, state.addToCart]);
+    const [quantity, setQuantity] = useState(0);
     const [products, setProducts] = useState<Product[]>([]);
 
     const [productDetail, setProductDetail] =
@@ -66,7 +69,7 @@ export const ItemDetail = () => {
             getProductsCategory(productDetail.category);
         } catch (error) {
             console.error(
-                `Error al obtener los productos por categoria: ${error}`
+                `Error al obtener los productos por categoria: ${error}`,
             );
         }
     }, [productDetail]);
@@ -77,9 +80,28 @@ export const ItemDetail = () => {
         setProducts([]);
     }, [itemId]);
 
+    useEffect(() => {
+        setQuantity(cart.find((item) => item.id === +itemId)?.quantity || 1);
+    }, [cart]);
+
     const filterProducts = products.filter(
-        (product) => product.id !== productDetail.id
+        (product) => product.id !== productDetail.id,
     );
+
+    const handleAddToCart = () => {
+        const newItem: CartItem = {
+            id: productDetail.id,
+            title: productDetail.title,
+            price: productDetail.price,
+            image: productDetail.image,
+            quantity: quantity,
+        };
+        addToCart(newItem);
+    };
+
+    useEffect(() => {
+        document.title = `${productDetail.title} - FakeStore`;
+    }, [productDetail]);
 
     return (
         <>
@@ -178,11 +200,44 @@ export const ItemDetail = () => {
                                     </Box>
                                 </Box>
                             </CardContent>
+
                             <Box
                                 display={'flex'}
                                 flexDirection={'column'}
                                 alignItems={'center'}
                             >
+                                {cart.find(
+                                    (item) => item.id === productDetail.id,
+                                ) && (
+                                    <Box
+                                        component="span"
+                                        fontSize={10}
+                                        bgcolor={'secondary.contrastText'}
+                                        mt={2}
+                                        py={0.5}
+                                        px={1.5}
+                                    >
+                                        <Typography
+                                            fontSize={13}
+                                            color={'primary.dark'}
+                                        >
+                                            You have
+                                            <Typography
+                                                component="span"
+                                                fontWeight="bold"
+                                                color={'error'}
+                                                fontSize={14}
+                                            >{` ${
+                                                cart.find(
+                                                    (item) =>
+                                                        item.id ===
+                                                        productDetail.id,
+                                                )?.quantity
+                                            } `}</Typography>
+                                            items in your cart
+                                        </Typography>
+                                    </Box>
+                                )}
                                 <Box
                                     display="flex"
                                     alignItems={'center'}
@@ -193,6 +248,10 @@ export const ItemDetail = () => {
                                     <IconButton
                                         aria-label="delete"
                                         color="primary"
+                                        onClick={() =>
+                                            setQuantity(quantity - 1)
+                                        }
+                                        disabled={quantity === 1}
                                     >
                                         <Remove />
                                     </IconButton>
@@ -201,11 +260,15 @@ export const ItemDetail = () => {
                                         fontWeight="bold"
                                         fontSize={18}
                                     >
-                                        1
+                                        {quantity}
                                     </Typography>
                                     <IconButton
                                         aria-label="delete"
                                         color="primary"
+                                        onClick={() =>
+                                            setQuantity(quantity + 1)
+                                        }
+                                        disabled={quantity === 10}
                                     >
                                         <Add />
                                     </IconButton>
@@ -216,8 +279,13 @@ export const ItemDetail = () => {
                                     sx={{
                                         width: { xs: '100%', md: '70%' },
                                     }}
+                                    onClick={handleAddToCart}
                                 >
-                                    Add to Cart
+                                    {cart.find(
+                                        (item) => item.id === productDetail.id,
+                                    )?.quantity
+                                        ? 'Update Cart'
+                                        : 'Add to Cart'}
                                 </Button>
                             </Box>
                         </Grid>

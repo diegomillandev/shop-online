@@ -13,6 +13,6 @@ export const AxiosInterceptor = () => {
         (error) => {
             SnackbarUtilities.error(getValidationError(error.code));
             return Promise.reject(error);
-        }
+        },
     );
 };

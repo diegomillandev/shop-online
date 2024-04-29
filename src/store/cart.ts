@@ -14,7 +14,7 @@ export const useCart = create<State>((set, get) => ({
     cart: [],
     addToCart: (product: CartItem) => {
         const existingProduct = get().cart.find(
-            (item) => item.id === product.id
+            (item) => item.id === product.id,
         );
         if (existingProduct) {
             const newCart = get().cart.map((item) => {

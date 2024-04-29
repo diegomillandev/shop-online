@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const AccountIconNavbar = () => {
     return (
-        <Link to={''}>
+        <Link>
             <Box mt={0.5} component={'div'} color={'primary.contrastText'}>
                 <AccountCircle fontSize="large" />
             </Box>

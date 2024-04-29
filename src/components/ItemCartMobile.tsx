@@ -7,9 +7,17 @@ import {
     IconButton,
     Typography,
 } from '@mui/material';
+import { useCart } from '../store/cart';
 import { CartItem } from '../types';
 
 export const ItemCartMobile = ({ item }: { item: CartItem }) => {
+    const [deleteItemCart, subQuantityItem, addQuantityItem] = useCart(
+        (state) => [
+            state.deleteItemCart,
+            state.subQuantityItem,
+            state.addQuantityItem,
+        ],
+    );
     return (
         <>
             <Grid item xs={12} mt={3}>
@@ -31,7 +39,10 @@ export const ItemCartMobile = ({ item }: { item: CartItem }) => {
                         </Typography>
                     </Grid>
                     <Grid item xs={1}>
-                        <IconButton>
+                        <IconButton
+                            onClick={() => deleteItemCart(item.id)}
+                            aria-label="delete"
+                        >
                             <DeleteForever color="error" />
                         </IconButton>
                     </Grid>
@@ -63,6 +74,8 @@ export const ItemCartMobile = ({ item }: { item: CartItem }) => {
                             display={'flex'}
                             alignItems={'center'}
                             justifyContent={'center'}
+                            onClick={() => subQuantityItem(item.id)}
+                            disabled={item.quantity === 0}
                         >
                             <Remove />
                         </Box>
@@ -80,6 +93,8 @@ export const ItemCartMobile = ({ item }: { item: CartItem }) => {
                             display={'flex'}
                             alignItems={'center'}
                             justifyContent={'center'}
+                            onClick={() => addQuantityItem(item.id)}
+                            disabled={item.quantity === 10}
                         >
                             <Add />
                         </Box>

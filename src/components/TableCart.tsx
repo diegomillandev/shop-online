@@ -7,7 +7,7 @@ import {
     TableRow,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ItemCartMobile, ItemCart } from '.';
+import { ItemCart, ItemCartMobile } from '.';
 import { useCart } from '../store/cart';
 
 type OrientTable = 'landscape' | 'mobile';

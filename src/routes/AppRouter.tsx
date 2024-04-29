@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
-import { Cart, Home, ItemDetail, Profile } from '../pages';
 import { LayoutApp } from '../layout';
+import { Cart, Home, ItemDetail, Profile } from '../pages';
+import { NoFound } from '../pages/PageNoFound';
 
 export const AppRouter = () => {
     return (
@@ -19,7 +20,7 @@ export const AppRouter = () => {
                     <ItemDetail />
                 </Route>
                 <Route path={'*'}>
-                    <h1>No Found</h1>
+                    <NoFound />
                 </Route>
             </Switch>
         </LayoutApp>

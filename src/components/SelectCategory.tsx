@@ -6,8 +6,8 @@ import {
     Select,
     SelectChangeEvent,
 } from '@mui/material';
-import { useProducts } from '../store';
 import { useEffect } from 'react';
+import { useProducts } from '../store';
 
 interface Props {
     category: string;

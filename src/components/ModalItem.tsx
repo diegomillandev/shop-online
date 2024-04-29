@@ -1,10 +1,10 @@
 import { Add, Close, Remove } from '@mui/icons-material';
 import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
-import { useEvents, useProducts } from '../store';
-import { CartItem, ProductModal } from '../types';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useEvents, useProducts } from '../store';
 import { useCart } from '../store/cart';
+import { CartItem, ProductModal } from '../types';
 
 export const ModalItem = () => {
     const [cart, addToCart] = useCart((state) => [state.cart, state.addToCart]);
@@ -20,7 +20,7 @@ export const ModalItem = () => {
 
     useEffect(() => {
         setQuantity(
-            cart.find((item) => item.id === productModal.id)?.quantity || 1
+            cart.find((item) => item.id === productModal.id)?.quantity || 1,
         );
     }, [cart, productModal.id]);
 
@@ -179,7 +179,7 @@ export const ModalItem = () => {
                                     alignItems={'center'}
                                 >
                                     {cart.find(
-                                        (item) => item.id === productModal.id
+                                        (item) => item.id === productModal.id,
                                     ) && (
                                         <Box
                                             component="span"
@@ -203,7 +203,7 @@ export const ModalItem = () => {
                                                     cart.find(
                                                         (item) =>
                                                             item.id ===
-                                                            productModal.id
+                                                            productModal.id,
                                                     )?.quantity
                                                 } `}</Typography>
                                                 items in your cart
@@ -257,7 +257,7 @@ export const ModalItem = () => {
                                         >
                                             {cart.find(
                                                 (item) =>
-                                                    item.id === productModal.id
+                                                    item.id === productModal.id,
                                             )?.quantity
                                                 ? 'Update Cart'
                                                 : 'Add to Cart'}

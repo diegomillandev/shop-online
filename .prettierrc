@@ -1,4 +1,13 @@
 {
-  "tabWidth": 4,
-  "singleQuote": true
+    "plugins": ["prettier-plugin-organize-imports"],
+    "importOrder": [
+        "^react$",
+        "^react/.*$",
+        "^@mui/.*$",
+        "^@/(.*)$",
+        "<THIRD_PARTY_MODULES>",
+        "^[./]"
+    ],
+    "tabWidth": 4,
+    "singleQuote": true
 }
