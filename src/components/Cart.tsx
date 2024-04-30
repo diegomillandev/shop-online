@@ -51,13 +51,14 @@ export const Cart = () => {
                     ) : (
                         <TableCart />
                     )}
-                    <Link to={cart.length ? '/cart' : ''}>
+                    <Link to={cart.length === 0 ? '' : '/store/cart'}>
                         <Button
                             variant="contained"
                             fullWidth
                             onClick={() => handleClose()}
+                            disabled={cart.length === 0}
                         >
-                            Checkout
+                                Go to Cart
                         </Button>
                     </Link>
                 </Box>

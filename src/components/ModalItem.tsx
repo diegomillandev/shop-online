@@ -1,10 +1,10 @@
 import { Add, Close, Remove } from '@mui/icons-material';
 import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useEvents, useProducts } from '../store';
 import { useCart } from '../store/cart';
 import { CartItem, ProductModal } from '../types';
+import { Link } from 'react-router-dom';
 
 export const ModalItem = () => {
     const [cart, addToCart] = useCart((state) => [state.cart, state.addToCart]);
@@ -124,7 +124,7 @@ export const ModalItem = () => {
                             component={'span'}
                         >
                             <Link
-                                to={`/item/${productModal.id}/${productModal.percentage}`}
+                                to={`/store/product/${productModal.id}/${productModal.percentage}`}
                                 onClick={handleOpen}
                             >
                                 <Typography>View product details</Typography>

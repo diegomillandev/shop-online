@@ -1,28 +1,12 @@
-import { Route, Switch } from 'react-router-dom';
-import { LayoutApp } from '../layout';
-import { Cart, Home, ItemDetail, Profile } from '../pages';
-import { NoFound } from '../pages/PageNoFound';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { StoreRouter } from './StoreRouter';
 
 export const AppRouter = () => {
     return (
-        <LayoutApp>
-            <Switch>
-                <Route exact path={'/'}>
-                    <Home />
-                </Route>
-                <Route exact path={'/cart'}>
-                    <Cart />
-                </Route>
-                <Route exact path={'/profile/user/:id'}>
-                    <Profile />
-                </Route>
-                <Route exact path={'/item/:itemId/:percentage'}>
-                    <ItemDetail />
-                </Route>
-                <Route path={'*'}>
-                    <NoFound />
-                </Route>
-            </Switch>
-        </LayoutApp>
+        <Switch>
+            <Route exact path="/" render={() => <Redirect to="/store" />} />
+            <Route path="/store" component={StoreRouter} />
+            <Route path="/admin" render={() => <h1>Admin</h1>} />
+        </Switch>
     );
 };

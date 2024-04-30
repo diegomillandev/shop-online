@@ -18,7 +18,7 @@ export const Cart = () => {
     useEffect(() => {
         if (cart.length === 0) {
             setTimeout(() => {
-                history.push('/');
+                history.push('/store');
             }, 500);
         }
     }, [cart]);

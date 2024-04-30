@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Logo = () => {
     return (
-        <Link to={'/'}>
+        <Link to={'/store'}>
             <Box sx={{ flex: { xs: 1, md: 0 }, display: 'flex' }}>
                 <Box
                     component={'img'}
