@@ -1,8 +1,7 @@
-import { Redirect } from "react-router-dom";
-import { useUser } from "../store";
-
+import { Redirect } from 'react-router-dom';
+import { useUserAdmin } from '../store/userAdmin';
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-    const [user] = useUser(state => [state.user])
-    return user?.id ?  children : <Redirect to="/admin/login" />;
-}
+    const [tokenUserAdmin] = useUserAdmin((state) => [state.tokenUserAdmin]);
+    return tokenUserAdmin ? children : <Redirect to="/admin/login" />;
+};

@@ -1,23 +1,33 @@
-import { Redirect, Route, Switch } from "react-router-dom"
-import { NoFound } from "../pages/PageNoFound"
-import { AuthGuard } from "../authGuard"
-
+import { ChakraProvider } from '@chakra-ui/react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { AuthGuard } from '../authGuard';
+import { LayoutAdmin } from '../layout';
+import { NoFound } from '../pages/PageNoFound';
+import { Login } from '../pages/admin';
 
 export const AdminRouter = () => {
-  return (
-    <Switch>
-        <Redirect from={'/admin'} to={'/admin/dashboard'} exact />
-        <Route exact path={'/admin/login'}>
-            <h1>Admin Login</h1>
-        </Route>
-        <Route path="/admin/dashboard">
-          <AuthGuard>
-            <h1>Admin Dashboard</h1>
-          </AuthGuard>
-        </Route>
-        <Route path={'*'}>
-            <NoFound />
-        </Route>
-    </Switch>
-  )
-}
+    return (
+        <ChakraProvider>
+            <Switch>
+                <Redirect from={'/admin'} to={'/admin/products'} exact />
+                <Route exact path={'/admin/login'}>
+                    <Login />
+                </Route>
+                <Route path="/admin/products">
+                    <AuthGuard>
+                        <LayoutAdmin>
+                            <h1>Admin Dashboard</h1>
+                        </LayoutAdmin>
+                    </AuthGuard>
+                </Route>
+                <Route path={'*'}>
+                    <AuthGuard>
+                        <LayoutAdmin>
+                            <NoFound />
+                        </LayoutAdmin>
+                    </AuthGuard>
+                </Route>
+            </Switch>
+        </ChakraProvider>
+    );
+};

@@ -11,3 +11,4 @@ export * from './MuiNavbar';
 export * from './SearchInput';
 export * from './SelectCategory';
 export * from './TableCart';
+export * from './admin/Sidebar';

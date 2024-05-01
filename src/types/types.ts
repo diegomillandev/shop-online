@@ -30,3 +30,17 @@ export interface User {
         lastname: string;
     };
 }
+
+export interface UserAdmin {
+    username: string;
+    password: string;
+}
+
+export interface UserAdminData {
+    token: string;
+    email: string;
+    name: {
+        firstname: string;
+        lastname: string;
+    };
+}
