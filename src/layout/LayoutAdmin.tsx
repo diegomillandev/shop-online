@@ -23,12 +23,14 @@ export const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
         };
     }, []);
     return (
-        <Box bg={'gray.800'}>
+        <Box>
             <Sidebar />
             <Box
                 as="main"
                 ml={isOpenSidebar ? '44' : '0'}
-                minH="(100vh - 64px)"
+                minH={'100vh'}
+                p={20}
+                bg={'gray.500'}
             >
                 {children}
             </Box>

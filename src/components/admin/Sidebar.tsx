@@ -145,7 +145,7 @@ export const Sidebar = () => {
                 }
                 bg="#1e2a36"
                 borderRight="1px"
-                borderColor="gray.200"
+                borderColor="gray.700"
                 zIndex="40"
                 overflowY="auto"
             >

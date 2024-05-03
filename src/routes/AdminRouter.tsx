@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { AuthGuard } from '../authGuard';
 import { LayoutAdmin } from '../layout';
 import { NoFound } from '../pages/PageNoFound';
-import { Login } from '../pages/admin';
+import { Login, TableProducts } from '../pages/admin';
 
 export const AdminRouter = () => {
     return (
@@ -16,7 +16,7 @@ export const AdminRouter = () => {
                 <Route path="/admin/products">
                     <AuthGuard>
                         <LayoutAdmin>
-                            <h1>Admin Dashboard</h1>
+                            <TableProducts />
                         </LayoutAdmin>
                     </AuthGuard>
                 </Route>
