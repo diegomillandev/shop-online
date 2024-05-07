@@ -1,13 +1,26 @@
 import { Box } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Sidebar } from '../components';
-import { useEvents } from '../store';
+import { useEvents, useUserAdmin } from '../store';
 
 export const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
+    const [setLogout] = useUserAdmin((state) => [state.setLogout]);
     const [isOpenSidebar, setIsOpenSidebar] = useEvents((state) => [
         state.isOpenSidebar,
         state.setIsOpenSidebar,
     ]);
+
+    const timer = useRef<number>(5000);
+
+    const startTimer = () => {
+        timer.current = window.setTimeout(() => {
+            setLogout();
+        }, 3000000);
+    };
+
+    const stopTimer = () => {
+        clearTimeout(timer.current);
+    };
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -18,8 +31,13 @@ export const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
             }
         });
 
+        window.addEventListener('blur', startTimer);
+        window.addEventListener('focus', stopTimer);
+
         return () => {
             window.removeEventListener('resize', () => {});
+            window.removeEventListener('blur', startTimer);
+            window.removeEventListener('focus', stopTimer);
         };
     }, []);
     return (
@@ -29,8 +47,10 @@ export const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
                 as="main"
                 ml={isOpenSidebar ? '44' : '0'}
                 minH={'100vh'}
-                p={20}
-                bg={'gray.500'}
+                pt={20}
+                px={8}
+                pb={10}
+                bg={'gray.800'}
             >
                 {children}
             </Box>

@@ -11,6 +11,14 @@ export interface Product {
     };
 }
 
+export interface FormProduct {
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string;
+}
+
 export interface ProductModal extends Product {
     percentage: number;
 }
