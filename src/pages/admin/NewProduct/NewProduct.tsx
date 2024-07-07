@@ -5,7 +5,7 @@ import { FormInputs } from '../../../components/admin';
 import { FormProduct, Product } from '../../../types';
 
 export const NewProduct = () => {
-    const [product, setProduct] = useState<Product | null>(null);
+    const [product] = useState<Product | null>(null);
     const {
         register,
         handleSubmit,
