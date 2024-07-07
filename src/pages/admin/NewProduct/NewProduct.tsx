@@ -1,14 +1,16 @@
 import { Box, Button, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormInputs } from '../../../components/admin';
-import { FormProduct } from '../../../types';
+import { FormProduct, Product } from '../../../types';
 
 export const NewProduct = () => {
+    const [product, setProduct] = useState<Product | null>(null);
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormProduct>();
+    } = useForm<FormProduct>({ defaultValues: product as FormProduct });
 
     const onSubmit = (data: FormProduct) => {
         console.log(data);

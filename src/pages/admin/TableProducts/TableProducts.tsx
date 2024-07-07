@@ -10,19 +10,36 @@ import {
     Thead,
     Tr,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LoadingIndicatorChakraUi } from '../../../components/admin';
-import { useProducts } from '../../../store';
+
+interface Product {
+    _id: string;
+    title: string;
+    price: number;
+    category: string;
+    description: string;
+    image: string;
+}
 
 export const TableProducts = () => {
-    const [products, getProducts] = useProducts((state) => [
-        state.products,
-        state.getProducts,
-    ]);
+    const [products, setProducts] = useState<Product[]>([]);
+
+    const URL_BASE: string = `https://api-shop-production-d3e8.up.railway.app/api`;
+
+    const getProductsApi = async () => {
+        try {
+            const response = await axios.get(`${URL_BASE}/products`);
+            setProducts(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        getProducts(20);
+        getProductsApi();
     }, []);
 
     return (
@@ -63,7 +80,7 @@ export const TableProducts = () => {
                             color={'black'}
                         >
                             {products.map((product) => (
-                                <Tr key={product.id}>
+                                <Tr key={product._id}>
                                     <Td>
                                         <Checkbox />
                                     </Td>
@@ -83,7 +100,7 @@ export const TableProducts = () => {
                                     <Td>{product.price}</Td>
                                     <Td>
                                         <Link
-                                            to={`/admin/product/edit-product/${product.id}`}
+                                            to={`/admin/product/edit-product/${product._id}`}
                                         >
                                             <Text
                                                 mr={2}
@@ -107,8 +124,6 @@ export const TableProducts = () => {
                                     </Td>
                                 </Tr>
                             ))}
-
-                            {/* Más filas de productos aquí */}
                         </Tbody>
                     </Table>
                 )}

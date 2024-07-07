@@ -1,9 +1,12 @@
 import { Box, Button, Text } from '@chakra-ui/react';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { FormInputs } from '../../../components/admin';
-import { getProductById } from '../../../services';
+import {
+    FormInputs,
+    LoadingIndicatorChakraUi,
+} from '../../../components/admin';
 import { FormProduct, Product } from '../../../types';
 
 interface Params {
@@ -11,16 +14,17 @@ interface Params {
 }
 
 export const EditProduct = () => {
+    const URL_BASE: string = `https://api-shop-production-d3e8.up.railway.app/api`;
     const { id } = useParams<Params>();
     const [product, setProduct] = useState<Product | null>(null);
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormProduct>();
+    } = useForm<FormProduct>({ defaultValues: product as FormProduct });
 
     const getProduct = async (id: string) => {
-        const response = await getProductById(Number(id));
+        const response = await axios.get(`${URL_BASE}/products/${id}`);
         setProduct(response.data);
     };
 
@@ -44,23 +48,27 @@ export const EditProduct = () => {
             >
                 Edit Product
             </Text>
-            <Box w={'450px'} bg={'white'} p={8} borderRadius={8}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormInputs
-                        register={register}
-                        errors={errors}
-                        product={product}
-                    />
-                    <Button
-                        mt={4}
-                        colorScheme="blue"
-                        width={'full'}
-                        type="submit"
-                    >
-                        Update Product
-                    </Button>
-                </form>
-            </Box>
+            {product ? (
+                <Box w={'450px'} bg={'white'} p={8} borderRadius={8}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <FormInputs
+                            register={register}
+                            errors={errors}
+                            product={product}
+                        />
+                        <Button
+                            mt={4}
+                            colorScheme="blue"
+                            width={'full'}
+                            type="submit"
+                        >
+                            Update Product
+                        </Button>
+                    </form>
+                </Box>
+            ) : (
+                <LoadingIndicatorChakraUi />
+            )}
         </Box>
     );
 };

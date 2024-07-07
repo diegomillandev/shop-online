@@ -2,6 +2,7 @@ import {
     FormControl,
     FormErrorMessage,
     FormLabel,
+    Image,
     Input,
     Textarea,
 } from '@chakra-ui/react';
@@ -42,6 +43,14 @@ export const FormInputs = ({ register, errors, product }: FormInputsProps) => {
             </FormControl>
             <FormControl mb="4" isInvalid={errors.image ? true : false}>
                 <FormLabel htmlFor="url_image">Url Image</FormLabel>
+                <Image
+                    boxSize="80px"
+                    objectFit="contain"
+                    display={product?.image ? 'block' : 'none'}
+                    src={product?.image}
+                    alt="Dan Abramov"
+                    padding={'10px'}
+                />
                 <Input
                     type="text"
                     id="url_image"
@@ -92,7 +101,7 @@ export const FormInputs = ({ register, errors, product }: FormInputsProps) => {
                     {...register('price', {
                         required: 'This is required',
                         pattern: {
-                            value: /^[0-9]*$/,
+                            value: /^[0-9]+(\.[0-9]{1,2})?$/,
                             message: 'Invalid price',
                         },
                     })}
